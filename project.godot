@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Track",
+"language": "GDScript",
+"path": "res://manualTrack.gd"
+} ]
+_global_script_class_icons={
+"Track": ""
+}
+
 [application]
 
 config/name="Card-racer"
