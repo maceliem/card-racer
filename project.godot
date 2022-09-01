@@ -21,8 +21,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Card-racer"
-run/main_scene="res://testmap.tscn"
+run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Network="*res://network.gd"
+Global="*res://global.gd"
 
 [gui]
 

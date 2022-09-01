@@ -1,27 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://manualTrack.gd" type="Script" id=1]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/roadMaterial.tres" type="Material" id=3]
+[ext_resource path="res://Goal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://icon.png" type="Texture" id=5]
 
 [sub_resource type="Curve3D" id=1]
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -128, 0, 67, 0, 0, 0, 0, 0, 0, -128, 0, 192, 0, 0, 0, 0, 0, 0, -128, 0, 320, -128, 0, 0, 128, 0, 0, 0, 0, 448, 0, 0, 0, 0, 0, 0, 255, 0, 448, 0, 0, 0, 0, 0, 0, 384, 0, 448, 0, 0, 0, 0, 0, 0, 640, 0, 448, 0, 0, 127, 0, 0, -127, 768, 0, 319, 0, 0, 0, 0, 0, 0, 768, 0, 192, 0, 0, 0, 0, 0, 0, 768, 0, -193, 128, 0, 0, -128, 0, 0, 640, 0, -320, 128, 0, 0, -128, 0, 0, 448, 0, -320, 0, 0, 0, 0, 0, 0, 320, 0, -192, 0, 0, 0, 0, 0, 0, 320, 0, -128, -128, 0, 0, 128, 0, 0, 448, 0, 0, -128, 0, 0, 128, 0, 0, 512, 0, 0, 0, 0, 0, 0, 0, 0, 640, 0, 128, 0, 0, 0, 0, 0, 0, 641, 0, 192, 128, 0, 0, -128, 0, 0, 512, 0, 320, 0, 0, 0, 0, 0, 0, 320, 0, 320, 0, 0, 128.3, 0, 0, -128.3, 192, 0, 192, 0, 0, 128, 0, 0, -128, 192, 0, -192, 0, 0, 0, 0, 0, 0, 64, 0, -320, 0, 0, 0, 0, 0, 0, 0, 0, -320, 0, 0, -128, 0, 0, 128, -128, 0, -192, 0, 0, 0, 0, 0, 0, -128, 0, 67 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
-}
-
-[sub_resource type="Curve3D" id=6]
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 192, 0, 384, 0, 0, 0, 0, 0, 0, 0, 0, 384, 0, 0, 0, 0, 0, 0, -64, 0, 320, 0, 0, 0, 0, 0, 0, -64, 0, -192, 0, 0, 0, 0, 0, 0, 0, 0, -256, 0, 0, 0, 0, 0, 0, 64, 0, -256, 0, 0, 0, 0, 0, 0, 128, 0, -192, 0, 0, 0, 0, 0, 0, 128, 0, 320, 0, 0, 0, 0, 0, 0, 192, 0, 384, 0, 0, 0, 0, 0, 0, 640.037, 0, 384.181, 0, 0, 0, 0, 0, 0, 704.019, 0, 320.002, 0, 0, 0, 0, 0, 0, 704, 0, -192, 0, 0, 0, 0, 0, 0, 640, 0, -256, 0, 0, 0, 0, 0, 0, 448, 0, -256, 0, 0, 0, 0, 0, 0, 384, 0, -192, 0, 0, 0, 0, 0, 0, 384, 0, -128, 0, 0, 0, 0, 0, 0, 448, 0, -64, 0, 0, 0, 0, 0, 0, 641, 0, -63, 0, 0, 0, 0, 0, 0, 704, 0, 0 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
-}
-
-[sub_resource type="SpatialMaterial" id=5]
-
-[sub_resource type="Curve3D" id=7]
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 192, 0, -384, 0, 0, 0, 0, 0, 0, 256, 0, -320, 0, 0, 0, 0, 0, 0, 255.508, 0, 191.049, 0, 0, 0, 0, 0, 0, 320.076, 0, 257.021, 0, 0, 0, 0, 0, 0, 512.376, 0, 255.617, 0, 0, 0, 0, 0, 0, 576.944, 0, 191.049, 0, 0, 0, 0, 0, 0, 576.944, 0, 127.885, 0, 0, 0, 0, 0, 0, 512.376, 0, 63.3172, 0, 0, 0, 0, 0, 0, 318.673, 0, 66.1245, 0, 0, 0, 0, 0, 0, 256, 0, -1, 0, 0, 0, 0, 0, 0, 256, 0, -320, 0, 0, 0, 0, 0, 0, 320, 0, -384 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 }
 
 [sub_resource type="PlaneMesh" id=3]
@@ -30,8 +17,38 @@ size = Vector2( 4, 4 )
 [sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 0.396078, 0.788235, 0.364706, 1 )
 
+[sub_resource type="Curve3D" id=8]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -128.25, 0, -384.447, 0, 0, 0, 0, 0, 0, -192.326, 0, -321.811, 0, 0, 0, 0, 0, 0, -191.705, 0, 448.455, 0, 0, 0, 0, 0, 0, -128.213, 0, 511.863, 0, 0, 0, 0, 0, 0, 767.238, 0, 512.051, 0, 0, 0, 0, 0, 0, 831.192, 0, 447.287, 0, 0, 0, 0, 0, 0, 831.757, 0, -320.193, 0, 0, 0, 0, 0, 0, 767.806, 0, -383.7, 0, 0, 0, 0, 0, 0, -128.25, 0, -384.447 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+}
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_texture = ExtResource( 5 )
+uv1_scale = Vector3( 0.25, 0.25, 0.25 )
+uv1_triplanar = true
+uv1_triplanar_sharpness = 30.91
+
+[sub_resource type="Curve3D" id=7]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 192, 0, -384, 0, 0, 0, 0, 0, 0, 256, 0, -320, 0, 0, 0, 0, 0, 0, 255.508, 0, 191.049, 0, 0, 0, 0, 0, 0, 320.076, 0, 257.021, 0, 0, 0, 0, 0, 0, 512.376, 0, 255.617, 0, 0, 0, 0, 0, 0, 576.944, 0, 191.049, 0, 0, 0, 0, 0, 0, 576.944, 0, 127.885, 0, 0, 0, 0, 0, 0, 512.376, 0, 63.3172, 0, 0, 0, 0, 0, 0, 318.673, 0, 66.1245, 0, 0, 0, 0, 0, 0, 256, 0, -1, 0, 0, 0, 0, 0, 0, 256, 0, -320, 0, 0, 0, 0, 0, 0, 320, 0, -384 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+}
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.419608, 0.419608, 0.419608, 1 )
+metallic = 0.3
+metallic_specular = 1.0
+
+[sub_resource type="Curve3D" id=6]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 192, 0, 384, 0, 0, 0, 0, 0, 0, 0, 0, 384, 0, 0, 0, 0, 0, 0, -64, 0, 320, 0, 0, 0, 0, 0, 0, -64, 0, -192, 0, 0, 0, 0, 0, 0, 0, 0, -256, 0, 0, 0, 0, 0, 0, 64, 0, -256, 0, 0, 0, 0, 0, 0, 128, 0, -192, 0, 0, 0, 0, 0, 0, 128, 0, 320, 0, 0, 0, 0, 0, 0, 192, 0, 384, 0, 0, 0, 0, 0, 0, 640.037, 0, 384.181, 0, 0, 0, 0, 0, 0, 704.019, 0, 320.002, 0, 0, 0, 0, 0, 0, 704, 0, -192, 0, 0, 0, 0, 0, 0, 640, 0, -256, 0, 0, 0, 0, 0, 0, 448, 0, -256, 0, 0, 0, 0, 0, 0, 384, 0, -192, 0, 0, 0, 0, 0, 0, 384, 0, -128, 0, 0, 0, 0, 0, 0, 448, 0, -64, 0, 0, 0, 0, 0, 0, 641, 0, -63, 0, 0, 0, 0, 0, 0, 704, 0, 0 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+}
+
 [node name="Node" type="Node"]
 script = ExtResource( 1 )
+startPositions = [ Vector3( -133, 0, -10 ), Vector3( -123, 0, -10 ) ]
 
 [node name="Road" type="Path" parent="."]
 curve = SubResource( 1 )
@@ -51,44 +68,6 @@ path_u_distance = 1.0
 path_joined = false
 material = ExtResource( 3 )
 
-[node name="wall" type="Path" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-curve = SubResource( 6 )
-
-[node name="wall" type="CSGPolygon" parent="wall"]
-use_collision = true
-polygon = PoolVector2Array( -1, 0, -1, 2, 1, 2, 1, 0 )
-mode = 2
-path_node = NodePath("..")
-path_interval_type = 0
-path_interval = 1.0
-path_simplify_angle = 20.0
-path_rotation = 2
-path_local = false
-path_continuous_u = true
-path_u_distance = 1.0
-path_joined = false
-material = SubResource( 5 )
-
-[node name="wall2" type="Path" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-curve = SubResource( 7 )
-
-[node name="wall" type="CSGPolygon" parent="wall2"]
-use_collision = true
-polygon = PoolVector2Array( -1, 0, -1, 2, 1, 2, 1, 0 )
-mode = 2
-path_node = NodePath("..")
-path_interval_type = 0
-path_interval = 1.0
-path_simplify_angle = 20.0
-path_rotation = 2
-path_local = false
-path_continuous_u = true
-path_u_distance = 1.0
-path_joined = false
-material = SubResource( 5 )
-
 [node name="CSGMesh" type="CSGMesh" parent="."]
 transform = Transform( 269.568, 0, 0, 0, 1, 0, 0, 0, 252.828, 320, 0, 64 )
 use_collision = true
@@ -97,5 +76,64 @@ collision_mask = 2
 mesh = SubResource( 3 )
 material = SubResource( 4 )
 
-[node name="VehicleBody" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 0, 0 )
+[node name="Goal" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -128, 0, 3 )
+
+[node name="walls" type="Node" parent="."]
+
+[node name="wall3" type="Path" parent="walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+curve = SubResource( 8 )
+
+[node name="wall" type="CSGPolygon" parent="walls/wall3"]
+use_collision = true
+polygon = PoolVector2Array( 0, 0, 0, 2, 100, 50, 2, 0 )
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 20.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+material = SubResource( 9 )
+
+[node name="wall2" type="Path" parent="walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+curve = SubResource( 7 )
+
+[node name="wall" type="CSGPolygon" parent="walls/wall2"]
+use_collision = true
+polygon = PoolVector2Array( -1, 0, -1, 2, 1, 2, 1, 0 )
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 20.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource( 5 )
+
+[node name="wall" type="Path" parent="walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+curve = SubResource( 6 )
+
+[node name="wall" type="CSGPolygon" parent="walls/wall"]
+use_collision = true
+polygon = PoolVector2Array( -1, 0, -1, 2, 1, 2, 1, 0 )
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 20.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource( 5 )
