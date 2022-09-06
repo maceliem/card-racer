@@ -1,3 +1,4 @@
+class_name Player
 extends VehicleBody
 
 var maxRPM := 3000
@@ -11,6 +12,22 @@ var puppetRotation = Vector3()
 var puppetRpm = 0.0
 var puppetAcceleration = 0.0
 
+
+func updateLook():
+	#Wait until we have data
+	if !get_parent().playerCustomization.has(int(name)):
+		yield(get_tree(), "idle_frame")
+		return updateLook()
+
+	#get data
+	var customVariables = get_parent().playerCustomization[int(name)]
+	
+	for child in $body.get_children():
+		if child.material == null: #createMaterial
+			child.material = SpatialMaterial.new()
+		child.material.albedo_color = customVariables.color
+
+
 export(NodePath) onready var camera = get_node(camera) as Camera
 export(NodePath) onready var networckTickRate = get_node(networckTickRate) as Timer
 export(NodePath) onready var movementTween = get_node(movementTween) as Tween
@@ -18,8 +35,9 @@ export(NodePath) onready var movementTween = get_node(movementTween) as Tween
 func _ready():
 	contact_monitor = true
 	contacts_reported = 1000
-
+	updateLook()
 	camera.current = is_network_master()
+
 
 func _physics_process(delta):
 	if is_network_master(): 

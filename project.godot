@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "VehicleBody",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player.gd"
+}, {
 "base": "Node",
 "class": "Track",
 "language": "GDScript",
 "path": "res://manualTrack.gd"
 } ]
 _global_script_class_icons={
+"Player": "",
 "Track": ""
 }
 

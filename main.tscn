@@ -7,44 +7,80 @@
 [node name="Node" type="Node"]
 script = ExtResource( 2 )
 
-[node name="connectMenu" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-script = ExtResource( 1 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="connectMenu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -128.0
-margin_top = -50.0
-margin_right = 128.0
-margin_bottom = 50.0
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+custom_constants/separation = 100
 alignment = 1
 
-[node name="IpAdress" type="LineEdit" parent="connectMenu/VBoxContainer"]
-margin_right = 256.0
-margin_bottom = 24.0
-align = 1
-placeholder_text = "IP Adress"
+[node name="ConnectMenu" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 209.0
+margin_right = 465.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 256, 120 )
+custom_constants/separation = 16
+alignment = 1
+script = ExtResource( 1 )
 
-[node name="Host" type="Button" parent="connectMenu/VBoxContainer"]
-margin_top = 28.0
+[node name="IpAdress" type="LineEdit" parent="HBoxContainer/ConnectMenu"]
+margin_top = 232.0
 margin_right = 256.0
-margin_bottom = 68.0
+margin_bottom = 256.0
+align = 1
+placeholder_text = "Host IP Adress"
+
+[node name="Host" type="Button" parent="HBoxContainer/ConnectMenu"]
+margin_top = 272.0
+margin_right = 256.0
+margin_bottom = 312.0
 rect_min_size = Vector2( 0, 40 )
 text = "Host"
 
-[node name="Join" type="Button" parent="connectMenu/VBoxContainer"]
-margin_top = 72.0
+[node name="Join" type="Button" parent="HBoxContainer/ConnectMenu"]
+margin_top = 328.0
 margin_right = 256.0
-margin_bottom = 112.0
+margin_bottom = 368.0
 rect_min_size = Vector2( 0, 40 )
 text = "Join"
 
+[node name="Customize" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 565.0
+margin_right = 815.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 250, 0 )
+custom_constants/separation = 16
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Customize"]
+margin_top = 264.0
+margin_right = 250.0
+margin_bottom = 288.0
+align = 1
+placeholder_text = "Player name"
+
+[node name="Label" type="Label" parent="HBoxContainer/Customize"]
+margin_top = 304.0
+margin_right = 250.0
+margin_bottom = 335.0
+text = "Player Color
+"
+align = 1
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer/Customize/Label"]
+margin_top = 20.0
+margin_right = 250.0
+margin_bottom = 40.0
+
 [node name="level" parent="." instance=ExtResource( 3 )]
 
-[connection signal="text_changed" from="connectMenu/VBoxContainer/IpAdress" to="connectMenu" method="_on_IpAdress_text_changed"]
-[connection signal="pressed" from="connectMenu/VBoxContainer/Host" to="connectMenu" method="_on_Host_pressed"]
-[connection signal="pressed" from="connectMenu/VBoxContainer/Join" to="connectMenu" method="_on_Join_pressed"]
+[connection signal="text_changed" from="HBoxContainer/ConnectMenu/IpAdress" to="HBoxContainer/ConnectMenu" method="_on_IpAdress_text_changed"]
+[connection signal="pressed" from="HBoxContainer/ConnectMenu/Host" to="HBoxContainer/ConnectMenu" method="_on_Host_pressed"]
+[connection signal="pressed" from="HBoxContainer/ConnectMenu/Join" to="HBoxContainer/ConnectMenu" method="_on_Join_pressed"]
+[connection signal="text_changed" from="HBoxContainer/Customize/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="color_changed" from="HBoxContainer/Customize/Label/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
