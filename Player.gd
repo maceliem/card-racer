@@ -21,7 +21,7 @@ func updateLook():
 
 	#get data
 	var customVariables = get_parent().playerCustomization[int(name)]
-	
+	$nametag.text = customVariables.name
 	for child in $body.get_children():
 		if child.material == null: #createMaterial
 			child.material = SpatialMaterial.new()
@@ -37,6 +37,7 @@ func _ready():
 	contacts_reported = 1000
 	updateLook()
 	camera.current = is_network_master()
+	$nametag.visible = !is_network_master()
 
 
 func _physics_process(delta):
@@ -49,7 +50,14 @@ func _physics_process(delta):
 		global_rotation = puppetRotation
 		rpm = puppetRpm
 		acceleration = puppetAcceleration
+		var cameraPos = get_viewport().get_camera().global_transform.origin
+		var between = Vector2(cameraPos.x - $nametag.global_transform.origin.x, cameraPos.z - $nametag.global_transform.origin.z)
+		$nametag.rotation.y = 90 - between.angle() - self.rotation.y
+		$nametag.pixel_size = between.length() / 2000
+		if $nametag.pixel_size < 0.01: $nametag.pixel_size = 0.01
+		if $nametag.pixel_size > 0.1: $nametag.pixel_size = 0.1
 
+	
 	var curTorque := maxTorque
 	var curMaxRPM := maxRPM
 	var onRoad:= false
