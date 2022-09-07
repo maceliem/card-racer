@@ -48,7 +48,7 @@ _data = {
 
 [node name="Node" type="Node"]
 script = ExtResource( 1 )
-startPositions = [ Vector3( -133, 0, -10 ), Vector3( -123, 0, -10 ) ]
+startPositions = [ Vector3( -133, 0, -10 ), Vector3( -123, 0, -10 ), Vector3( -128, 0, -10 ), Vector3( -133, 0, -20 ), Vector3( -123, 0, -20 ), Vector3( -128, 0, -20 ), Vector3( -133, 0, -30 ), Vector3( -123, 0, -30 ), Vector3( -128, 0, -30 ) ]
 
 [node name="Road" type="Path" parent="."]
 curve = SubResource( 1 )
@@ -82,7 +82,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -128, 0, 3 )
 [node name="walls" type="Node" parent="."]
 
 [node name="wall3" type="Path" parent="walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 curve = SubResource( 8 )
 
 [node name="wall" type="CSGPolygon" parent="walls/wall3"]
@@ -101,7 +100,6 @@ path_joined = true
 material = SubResource( 9 )
 
 [node name="wall2" type="Path" parent="walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 curve = SubResource( 7 )
 
 [node name="wall" type="CSGPolygon" parent="walls/wall2"]
@@ -120,7 +118,6 @@ path_joined = false
 material = SubResource( 5 )
 
 [node name="wall" type="Path" parent="walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 curve = SubResource( 6 )
 
 [node name="wall" type="CSGPolygon" parent="walls/wall"]
