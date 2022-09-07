@@ -7,11 +7,12 @@ var offroad := 0.5
 
 var rpm
 var acceleration
-var puppetPosition = Vector3()
-var puppetRotation = Vector3()
-var puppetRpm = 0.0
-var puppetAcceleration = 0.0
+var puppetPosition := Vector3()
+var puppetRotation := Vector3()
+var puppetRpm := 0.0
+var puppetAcceleration := 0.0
 
+var startPos := 0
 
 func updateLook():
 	#Wait until we have data

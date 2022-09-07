@@ -39,7 +39,7 @@ func _connection_failed():
 	reset_network_connection()	
 
 func _network_peer_connected(id):
-	print("network_peer_connected" + str(id))
+	print("network_peer_connected " + str(id))
 
 func reset_network_connection():
 	if get_tree().has_network_peer():

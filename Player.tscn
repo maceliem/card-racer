@@ -100,7 +100,7 @@ autostart = true
 
 [node name="nametag" type="Label3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0 )
-text = "Fisk"
+visible = false
 font = SubResource( 4 )
 
 [connection signal="timeout" from="NetworkTickRate" to="." method="_on_NetworkTickRate_timeout"]
