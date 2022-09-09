@@ -15,6 +15,7 @@ var puppetRpm := 0.0
 var puppetAcceleration := 0.0
 
 var startPos := 0
+var countdown := 3
 
 func updateLook():
 	#Wait until we have data
@@ -39,7 +40,6 @@ func _ready():
 	contact_monitor = true
 	contacts_reported = 1000
 	$Camera.current = false
-	set_physics_process(false)
 
 func _start():
 	main = get_parent()
@@ -47,12 +47,18 @@ func _start():
 	camera.current = is_network_master()
 	$nametag.visible = !is_network_master()
 	global_transform.origin = main.get_node("level").startPositions[main.positions[int(name)]]
-	set_physics_process(true)
+	$countdown/countdownText.translation = Vector3(translation.x, translation.y +6, translation.z - 6)
+	$countdown/countdownText.font.size = 75
+	$countdown/countdownText.visible = is_network_master()
 	$NetworkTickRate.start()
-	gravity_scale = 1
+	$countdown.start()
+	sleeping = false 
 
 
 func _physics_process(delta):
+	if countdown>0: 
+		$countdown/countdownText.font.size += 1
+		return
 	if is_network_master(): 
 		steering = lerp(steering, Input.get_axis("right", "left") * 0.05, 10 * delta)
 		acceleration = Input.get_axis("break", "accelerate")
@@ -99,3 +105,17 @@ func _on_NetworkTickRate_timeout():
 		rpc_unreliable("update_state", global_transform.origin, rpm, global_rotation, acceleration)
 	else:
 		networckTickRate.stop()
+
+
+func _on_countdown_timeout():
+	countdown -= 1
+	if countdown > 0:
+		$countdown.start()
+		$countdown/countdownText.text = str(countdown)
+		$countdown/countdownText.font.size = 75
+	elif countdown == 0:
+		$countdown.start()
+		$countdown/countdownText.text = "GO!!!"
+		$countdown/countdownText.font.size = 75
+	else: $countdown/countdownText.visible = false
+

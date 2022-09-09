@@ -121,7 +121,6 @@ func _on_begin_pressed():
 		rpc_id(id, "_begin", selectedLevel)
 
 remote func _begin(levelName:String):
-	print("fisk")
 	var parts := levelName.split("-")
 	var level:Track = load("res://levels/" + parts[0] + "/" + parts[1] + ".tscn").instance()
 	level.name = "level"

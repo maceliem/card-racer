@@ -48,7 +48,6 @@ _data = {
 
 [node name="Node" type="Node"]
 script = ExtResource( 2 )
-startPositions = [ Vector3( -133, 0, -10 ), Vector3( -123, 0, -10 ), Vector3( -128, 0, -10 ), Vector3( -133, 0, -20 ), Vector3( -123, 0, -20 ), Vector3( -128, 0, -20 ), Vector3( -133, 0, -30 ), Vector3( -123, 0, -30 ), Vector3( -128, 0, -30 ) ]
 preview = ExtResource( 4 )
 
 [node name="Road" type="Path" parent="."]
@@ -135,3 +134,32 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 material = SubResource( 5 )
+
+[node name="startPositions" type="Node" parent="."]
+
+[node name="Position3D" type="Position3D" parent="startPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -133, 0, -10 )
+
+[node name="Position3D2" type="Position3D" parent="startPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -123, 0, -10 )
+
+[node name="Position3D3" type="Position3D" parent="startPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -128, 0, -10 )
+
+[node name="Position3D4" type="Position3D" parent="startPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -133, 0, -20 )
+
+[node name="Position3D5" type="Position3D" parent="startPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -123, 0, -20 )
+
+[node name="Position3D6" type="Position3D" parent="startPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -128, 0, -20 )
+
+[node name="Position3D7" type="Position3D" parent="startPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -133, 0, -30 )
+
+[node name="Position3D8" type="Position3D" parent="startPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -123, 0, -30 )
+
+[node name="Position3D9" type="Position3D" parent="startPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -128, 0, -30 )
