@@ -17,8 +17,23 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -828.0
 margin_top = -408.0
-margin_right = 828.0
+margin_right = 578.0
 margin_bottom = 408.0
+rect_pivot_offset = Vector2( -578, -132 )
 custom_constants/vseparation = 264
 custom_constants/hseparation = 264
 columns = 4
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 1568.0
+margin_top = 132.0
+margin_right = 1850.0
+margin_bottom = 948.0
+color = Color( 0.0431373, 0, 0, 1 )
+
+[node name="playerList" type="VBoxContainer" parent="."]
+margin_left = 1578.0
+margin_top = 164.0
+margin_right = 1840.0
+margin_bottom = 916.0
+custom_constants/separation = 64

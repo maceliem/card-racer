@@ -1,6 +1,7 @@
 extends Node
 
 var player = preload("res://Player.tscn")
+export(Texture) var icone
 
 var ownCustomization := {
 	"name":"Bob",
@@ -10,6 +11,7 @@ var ownCustomization := {
 var positions := {1:0}
 var playerCustomization := {}
 func _ready():
+	var x := true
 	_loadGame()
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
@@ -24,9 +26,12 @@ func _instance_player(id):
 	player_instance.set_network_master(id)
 	player_instance.name = str(id)
 	add_child(player_instance)
-	while !positions.has(id):
+	while !playerCustomization.has(id):
 		yield(get_tree(), "idle_frame")
-	player_instance.global_transform.origin = $level.startPositions[positions[id]]
+	var customs:Dictionary = playerCustomization[id]
+	var labelname:String = customs.name
+	if id == 1: labelname += " (host)"
+	$levelSelect.addPlayer(labelname, customs.color, icone)
 	
 
 func _player_connected(id):
@@ -84,5 +89,5 @@ func _loadGame():
 			if key == "pos": continue
 			ownCustomization[key] = saveData[key]
 
-		$HBoxContainer/Customize/Label/ColorPickerButton.color = ownCustomization.color
-		$HBoxContainer/Customize/LineEdit.text = ownCustomization.name
+		$gameElements/Customize/Label/ColorPickerButton.color = ownCustomization.color
+		$gameElements/Customize/LineEdit.text = ownCustomization.name

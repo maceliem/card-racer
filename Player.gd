@@ -1,6 +1,8 @@
 class_name Player
 extends VehicleBody
 
+var main:Node
+
 var maxRPM := 3000
 var maxTorque := 800
 var offroad := 0.5
@@ -16,12 +18,12 @@ var startPos := 0
 
 func updateLook():
 	#Wait until we have data
-	if !get_parent().playerCustomization.has(int(name)):
+	if !main.playerCustomization.has(int(name)):
 		yield(get_tree(), "idle_frame")
 		return updateLook()
 
 	#get data
-	var customVariables = get_parent().playerCustomization[int(name)]
+	var customVariables = main.playerCustomization[int(name)]
 	$nametag.text = customVariables.name
 	for child in $body.get_children():
 		if child.material == null: #createMaterial
@@ -36,11 +38,17 @@ export(NodePath) onready var movementTween = get_node(movementTween) as Tween
 func _ready():
 	contact_monitor = true
 	contacts_reported = 1000
+	$Camera.current = false
+	set_physics_process(false)
 
 func _start():
+	main = get_parent()
 	updateLook()
 	camera.current = is_network_master()
 	$nametag.visible = !is_network_master()
+	global_transform.origin = main.get_node("level").startPositions[main.positions[int(name)]]
+	set_physics_process(true)
+	$NetworkTickRate.start()
 
 
 func _physics_process(delta):

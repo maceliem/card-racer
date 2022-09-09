@@ -23,7 +23,7 @@ func _ready():
 		worldGrid.visible = false
 		worldGrid.name = "grid"
 		worldGrid.rect_position = Vector2(0- world.rect_position.x, 262 - world.rect_position.y)
-		worldGrid.rect_min_size = Vector2(1656, 456)
+		worldGrid.rect_min_size = Vector2(1406, 456)
 		
 		var levels := list_files_in_directory("res://levels/" + worldname)
 		for levelname in levels:
@@ -42,18 +42,23 @@ func _ready():
 		worldBackground.visible = false
 		world.add_child(worldBackground)
 		world.add_child(worldGrid)
+
 func _worldPressed():
 	var worlds := worldButtons.get_buttons()
 	var pressedWorld := worldButtons.get_pressed_button()
 	for world in worlds:
+		if world == pressedWorld: continue
 		world.get_node("grid").visible = false
 		world.get_node("background").visible = false
 	var grid = pressedWorld.get_node("grid")	
 	var background = pressedWorld.get_node("background")
-	grid.visible = true	
-	background.visible = true
+	if grid.visible: grid.visible = false
+	else: grid.visible = true	
+	if background.visible: background.visible = false
+	else: background.visible = true
 	grid.rect_position = Vector2(0- pressedWorld.rect_position.x, 262 - pressedWorld.rect_position.y)
 	background.rect_position = Vector2(0- pressedWorld.rect_position.x, 262 - pressedWorld.rect_position.y)
+
 func list_files_in_directory(path:String) -> Array:
 	var files = []
 	var dir = Directory.new()
@@ -69,3 +74,19 @@ func list_files_in_directory(path:String) -> Array:
 
 	dir.list_dir_end()
 	return files
+
+func addPlayer(name:String, color:Color, icon:Texture):
+	var box := HBoxContainer.new()
+	var texture := TextureRect.new()
+	texture.texture = icon
+	texture.modulate = color
+	var label := Label.new()
+	label.text = name
+	label.add_color_override("font_color", color)
+	var font:Font = load("res://assets/basicFont.tres")
+	label.add_font_override("font", font)
+	box.add_child(texture)
+	box.add_child(label)
+	$playerList.add_child(box)
+	box.add_constant_override("separation", 16)
+	pass
