@@ -36,6 +36,8 @@ export(NodePath) onready var movementTween = get_node(movementTween) as Tween
 func _ready():
 	contact_monitor = true
 	contacts_reported = 1000
+
+func _start():
 	updateLook()
 	camera.current = is_network_master()
 	$nametag.visible = !is_network_master()

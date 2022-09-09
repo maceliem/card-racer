@@ -35,6 +35,18 @@ config/icon="res://icon.png"
 Network="*res://network.gd"
 Global="*res://global.gd"
 
+[debug]
+
+gdscript/warnings/unused_argument=false
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/borderless=true
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
