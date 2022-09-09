@@ -15,7 +15,10 @@ var puppetRpm := 0.0
 var puppetAcceleration := 0.0
 
 var startPos := 0
-var countdown := 3
+var countdown := 0
+
+var laps := -1
+var finalPos:int
 
 func updateLook():
 	#Wait until we have data
@@ -42,22 +45,25 @@ func _ready():
 	$Camera.current = false
 
 func _start():
+	$back_left.engine_force = 0
+	$back_right.engine_force = 0
 	main = get_parent()
 	updateLook()
 	camera.current = is_network_master()
 	$nametag.visible = !is_network_master()
-	global_transform.origin = main.get_node("level").startPositions[main.positions[int(name)]]
+	global_transform.origin = main.get_node("level").startPositions[main.positions[int(name)]].translation
+	global_rotation = main.get_node("level").startPositions[main.positions[int(name)]].rotation
 	$countdown/countdownText.translation = Vector3(translation.x, translation.y +6, translation.z - 6)
 	$countdown/countdownText.font.size = 75
 	$countdown/countdownText.visible = is_network_master()
-	$NetworkTickRate.start()
+	countdown = 3
 	$countdown.start()
 	sleeping = false 
 
 
 func _physics_process(delta):
 	if countdown>0: 
-		$countdown/countdownText.font.size += 1
+		#$countdown/countdownText.font.size += 1
 		return
 	if is_network_master(): 
 		steering = lerp(steering, Input.get_axis("right", "left") * 0.05, 10 * delta)
@@ -68,12 +74,14 @@ func _physics_process(delta):
 		global_rotation = puppetRotation
 		rpm = puppetRpm
 		acceleration = puppetAcceleration
-		var cameraPos = get_viewport().get_camera().global_transform.origin
-		var between = Vector2(cameraPos.x - $nametag.global_transform.origin.x, cameraPos.z - $nametag.global_transform.origin.z)
-		$nametag.rotation.y = 90 - between.angle() - self.rotation.y
-		$nametag.pixel_size = between.length() / 2000
-		if $nametag.pixel_size < 0.01: $nametag.pixel_size = 0.01
-		if $nametag.pixel_size > 0.1: $nametag.pixel_size = 0.1
+		var curCamera = get_viewport().get_camera()
+		if curCamera is Camera:
+			var cameraPos = curCamera.global_transform.origin
+			var between = Vector2(cameraPos.x - $nametag.global_transform.origin.x, cameraPos.z - $nametag.global_transform.origin.z)
+			$nametag.rotation.y = 90 - between.angle() - self.rotation.y
+			$nametag.pixel_size = between.length() / 2000
+			if $nametag.pixel_size < 0.01: $nametag.pixel_size = 0.01
+			if $nametag.pixel_size > 0.1: $nametag.pixel_size = 0.1
 
 	
 	var curTorque := maxTorque
@@ -117,5 +125,5 @@ func _on_countdown_timeout():
 		$countdown.start()
 		$countdown/countdownText.text = "GO!!!"
 		$countdown/countdownText.font.size = 75
+		$NetworkTickRate.start()
 	else: $countdown/countdownText.visible = false
-

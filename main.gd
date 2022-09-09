@@ -31,7 +31,7 @@ func _instance_player(id):
 	var customs:Dictionary = playerCustomization[id]
 	var labelname:String = customs.name
 	if id == 1: labelname += " (host)"
-	$levelSelect.addPlayer(labelname, customs.color, icone)
+	$levelSelect.addPlayer(labelname, customs.color, icone, id)
 	
 
 func _player_connected(id):
@@ -51,6 +51,9 @@ func _player_disconnected(id):
 
 	if has_node(str(id)):
 		get_node(str(id)).queue_free()
+		$levelSelect.removePlayer(id)
+		playerCustomization.erase(id)
+		positions.erase(id)
 
 func _on_LineEdit_text_changed(new_text:String):
 	if new_text == "":
@@ -91,3 +94,14 @@ func _loadGame():
 
 		$gameElements/Customize/Label/ColorPickerButton.color = ownCustomization.color
 		$gameElements/Customize/LineEdit.text = ownCustomization.name
+
+func finishRace():
+	$levelSelect.visible = true
+	for id in playerCustomization.keys():
+		var player_instance:Player = get_node(str(id))
+		var score := int($levelSelect/playerList.get_node(str(id) + "/score").text)
+		score += playerCustomization.size() - player_instance.finalPos
+		$levelSelect/playerList.get_node(str(id) + "/score").text = str(score)
+		player_instance.camera.current = false
+	$Camera2D.current = true
+	get_node("level").queue_free()

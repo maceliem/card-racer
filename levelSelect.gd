@@ -96,7 +96,7 @@ func list_files_in_directory(path:String) -> Array:
 	dir.list_dir_end()
 	return files
 
-func addPlayer(name:String, color:Color, icon:Texture):
+func addPlayer(name:String, color:Color, icon:Texture, id:int):
 	var box := HBoxContainer.new()
 	var texture := TextureRect.new()
 	texture.texture = icon
@@ -106,12 +106,23 @@ func addPlayer(name:String, color:Color, icon:Texture):
 	label.add_color_override("font_color", color)
 	var font:Font = load("res://assets/basicFont.tres")
 	label.add_font_override("font", font)
+	var score = Label.new()
+	score.text = str(0)
+	score.add_color_override("font_color", color)
+	score.add_font_override("font", font)
+	score.name = "score"
 	box.add_child(texture)
 	box.add_child(label)
+	box.add_child(score)
 	$playerList.add_child(box)
 	box.add_constant_override("separation", 16)
+	box.name = str(id)
 	pass
 
+func removePlayer(id:int):
+	var box = $playerList.get_node(str(id))
+	remove_child(box)
+	box.queue_free()
 
 func _on_begin_pressed():
 	var keys := votes.keys()

@@ -1,0 +1,46 @@
+Date : 2022-09-09 22:24:12
+Directory : c:\Users\matti\Documents\GitHub\card-racer
+Total : 19 files,  707 codes, 13 comments, 162 blanks, all 882 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| GDScript   |          8 |        387 |          6 |         88 |        481 |
+| GDResource |         10 |        281 |          7 |         70 |        358 |
+| Properties |          1 |         39 |          0 |          4 |         43 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                            | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                               |         19 |        707 |         13 |        162 |        882 |
+| assets                                                                                          |          7 |        182 |          0 |         42 |        224 |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                        | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\matti\Documents\GitHub\card-racer\Goal.gd                                              | GDScript   |         12 |          0 |          3 |         15 |
+| c:\Users\matti\Documents\GitHub\card-racer\Player.gd                                            | GDScript   |         99 |          4 |         21 |        124 |
+| c:\Users\matti\Documents\GitHub\card-racer\assets\TexturesCom_Roads0069_1_seamless_S.jpg.import | GDResource |         32 |          0 |          6 |         38 |
+| c:\Users\matti\Documents\GitHub\card-racer\assets\basicFont.tres                                | GDResource |          5 |          0 |          3 |          8 |
+| c:\Users\matti\Documents\GitHub\card-racer\assets\roadDesign.png.import                         | GDResource |         32 |          0 |          6 |         38 |
+| c:\Users\matti\Documents\GitHub\card-racer\assets\roadMaterial.tres                             | GDResource |         17 |          0 |          9 |         26 |
+| c:\Users\matti\Documents\GitHub\card-racer\assets\test.png.import                               | GDResource |         32 |          0 |          6 |         38 |
+| c:\Users\matti\Documents\GitHub\card-racer\assets\testmap.png.import                            | GDResource |         32 |          0 |          6 |         38 |
+| c:\Users\matti\Documents\GitHub\card-racer\assets\testmap2.png.import                           | GDResource |         32 |          0 |          6 |         38 |
+| c:\Users\matti\Documents\GitHub\card-racer\connectMenu.gd                                       | GDScript   |         22 |          0 |          9 |         31 |
+| c:\Users\matti\Documents\GitHub\card-racer\default_env.tres                                     | GDResource |          5 |          0 |          3 |          8 |
+| c:\Users\matti\Documents\GitHub\card-racer\export_presets.cfg                                   | Properties |         39 |          0 |          4 |         43 |
+| c:\Users\matti\Documents\GitHub\card-racer\global.gd                                            | GDScript   |          3 |          0 |          1 |          4 |
+| c:\Users\matti\Documents\GitHub\card-racer\icon.png.import                                      | GDResource |         32 |          0 |          6 |         38 |
+| c:\Users\matti\Documents\GitHub\card-racer\levelSelect.gd                                       | GDScript   |        128 |          0 |         16 |        144 |
+| c:\Users\matti\Documents\GitHub\card-racer\main.gd                                              | GDScript   |         81 |          2 |         22 |        105 |
+| c:\Users\matti\Documents\GitHub\card-racer\manualTrack.gd                                       | GDScript   |          9 |          0 |          2 |         11 |
+| c:\Users\matti\Documents\GitHub\card-racer\network.gd                                           | GDScript   |         33 |          0 |         14 |         47 |
+| c:\Users\matti\Documents\GitHub\card-racer\project.godot                                        | GDResource |         62 |          7 |         19 |         88 |
+| Total                                                                                           |            |        707 |         13 |        162 |        882 |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

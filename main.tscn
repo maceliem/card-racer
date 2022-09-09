@@ -82,6 +82,9 @@ margin_bottom = 40.0
 [node name="levelSelect" parent="." instance=ExtResource( 3 )]
 visible = false
 
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
 [connection signal="text_changed" from="gameElements/ConnectMenu/IpAdress" to="gameElements/ConnectMenu" method="_on_IpAdress_text_changed"]
 [connection signal="pressed" from="gameElements/ConnectMenu/Host" to="gameElements/ConnectMenu" method="_on_Host_pressed"]
 [connection signal="pressed" from="gameElements/ConnectMenu/Join" to="gameElements/ConnectMenu" method="_on_Join_pressed"]
