@@ -21,7 +21,8 @@ func doBoth():
 	var main = get_parent().get_parent()
 	get_parent().hide()
 	main.playerCustomization[id] = main.ownCustomization
-	get_parent().get_parent().get_node("levelSelect").visible = true
+	main.get_node("levelSelect").visible = true
+	if id != 1: main.get_node("levelSelect/begin").disabled = true
 	main._saveGame()
 	Global.emit_signal("instance_player", id)
 

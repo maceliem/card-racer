@@ -49,6 +49,7 @@ func _start():
 	global_transform.origin = main.get_node("level").startPositions[main.positions[int(name)]]
 	set_physics_process(true)
 	$NetworkTickRate.start()
+	gravity_scale = 1
 
 
 func _physics_process(delta):
