@@ -43,28 +43,28 @@ func _ready():
 	contact_monitor = true
 	contacts_reported = 1000
 	$Camera.current = false
+	$UI.visible = false
+	main = get_parent()
+
 
 func _start():
 	$back_left.engine_force = 0
 	$back_right.engine_force = 0
-	main = get_parent()
+	
 	updateLook()
 	camera.current = is_network_master()
 	$nametag.visible = !is_network_master()
 	global_transform.origin = main.get_node("level").startPositions[main.positions[int(name)]].translation
 	global_rotation = main.get_node("level").startPositions[main.positions[int(name)]].rotation
-	$countdown/countdownText.translation = Vector3(translation.x, translation.y +6, translation.z - 6)
-	$countdown/countdownText.font.size = 75
-	$countdown/countdownText.visible = is_network_master()
+	$UI.visible = is_network_master()
 	countdown = 3
 	$countdown.start()
 	sleeping = false 
+	$UI/speeder.max_value = maxRPM
 
 
 func _physics_process(delta):
-	if countdown>0: 
-		#$countdown/countdownText.font.size += 1
-		return
+	if countdown>0: return
 	if is_network_master(): 
 		steering = lerp(steering, Input.get_axis("right", "left") * 0.05, 10 * delta)
 		acceleration = Input.get_axis("break", "accelerate")
@@ -96,7 +96,8 @@ func _physics_process(delta):
 	$back_left.engine_force = acceleration * curTorque * (1 - rpm / curMaxRPM)
 	rpm = $back_right.get_rpm()
 	$back_right.engine_force = acceleration * curTorque * (1 - rpm / curMaxRPM)
-
+	
+	$UI/speeder.value = rpm
 
 puppet func update_state(p_position, p_rpm, p_rotation, p_acceleration):
 		puppetPosition = p_position
@@ -119,11 +120,16 @@ func _on_countdown_timeout():
 	countdown -= 1
 	if countdown > 0:
 		$countdown.start()
-		$countdown/countdownText.text = str(countdown)
-		$countdown/countdownText.font.size = 75
+		$UI/countdownText.text = str(countdown)
 	elif countdown == 0:
 		$countdown.start()
-		$countdown/countdownText.text = "GO!!!"
-		$countdown/countdownText.font.size = 75
+		$UI/countdownText.text = "GO!!!"
 		$NetworkTickRate.start()
-	else: $countdown/countdownText.visible = false
+	else: $UI/countdownText.visible = false
+
+func _on_lapsTimer_timeout():
+	$UI/lapsCounter.modulate.a -= 0.1
+	if $UI/lapsCounter.modulate.a < 0:
+		$UI/lapsCounter.modulate.a = 1
+		$UI/lapsCounter.visible = false
+		$UI/lapsCounter/lapsTimer.stop()

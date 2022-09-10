@@ -103,5 +103,6 @@ func finishRace():
 		score += playerCustomization.size() - player_instance.finalPos
 		$levelSelect/playerList.get_node(str(id) + "/score").text = str(score)
 		player_instance.camera.current = false
+		player_instance.get_node("UI").visible = false
 	$Camera2D.current = true
 	get_node("level").queue_free()
