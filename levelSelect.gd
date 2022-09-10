@@ -1,6 +1,7 @@
 extends Control
 export(Array, Texture) var worldImages := []
 export(Array, Array, Texture) var levelImages := []
+export(Array, Texture) var readyIcon := []
 
 var worldButtons := ButtonGroup.new()
 var levelButtons := ButtonGroup.new()
@@ -19,7 +20,7 @@ func _ready():
 		if len(worldImages) >= int(worldname) and worldImages[int(worldname)-1] != null: #check if world image has been made
 			world.icon = worldImages[int(worldname)-1]
 		else: #if not, we just display the name
-			world.text = worldname
+			world.text = "world: " + worldname
 		$GridContainer.add_child(world)
 		
 		var worldGrid := GridContainer.new()
@@ -38,6 +39,8 @@ func _ready():
 			level.icon_align = 1
 			if len(levelImages) >= int(levelname) and levelImages[int(worldname)-1][int(levelname)] != null:
 				level.icon = levelImages[int(worldname)-1][int(levelname)]
+			else:
+				level.text = worldname + "-" + levelname
 			level.set_button_group(levelButtons)
 			level.connect("pressed", self, "_levelPressed")
 			worldGrid.add_child(level)
@@ -73,12 +76,22 @@ func _levelPressed():
 		if level == pressedLevel: continue
 		level.modulate = Color(1, 1, 1, 1)
 	pressedLevel.modulate = Color(0.8, 0.8, 0.8, 1)
-	votes[get_tree().get_network_unique_id()] = pressedLevel.name
+	_vote(pressedLevel.name)
+	var allDone := true
 	for id in get_tree().get_network_connected_peers():
 		rpc_id(id, "_vote", pressedLevel.name)
+		if $playerList.get_node(str(id) + "/readyTexture").texture == readyIcon[0]:
+			allDone = false
+	if get_tree().get_network_unique_id() == 1 and allDone:
+		$begin.disabled = false
+		
 
 remote func _vote(levelName:String):
-	votes[get_tree().get_rpc_sender_id()] = levelName
+	var id = get_tree().get_rpc_sender_id()
+	if id == 0: id = get_tree().get_network_unique_id()
+	votes[id] = levelName
+	$playerList.get_node(str(id) + "/readyTexture").texture = readyIcon[1]
+
 
 func list_files_in_directory(path:String) -> Array:
 	var files = []
@@ -98,6 +111,11 @@ func list_files_in_directory(path:String) -> Array:
 
 func addPlayer(name:String, color:Color, icon:Texture, id:int):
 	var box := HBoxContainer.new()
+	box.alignment = 1
+	var readyTexture = TextureRect.new()
+	readyTexture.name = "readyTexture"
+	readyTexture.texture = readyIcon[0]
+	readyTexture.stretch_mode = 4
 	var texture := TextureRect.new()
 	texture.texture = icon
 	texture.modulate = color
@@ -111,6 +129,7 @@ func addPlayer(name:String, color:Color, icon:Texture, id:int):
 	score.add_color_override("font_color", color)
 	score.add_font_override("font", font)
 	score.name = "score"
+	box.add_child(readyTexture)
 	box.add_child(texture)
 	box.add_child(label)
 	box.add_child(score)
