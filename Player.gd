@@ -97,7 +97,7 @@ func _physics_process(delta):
 	rpm = $back_right.get_rpm()
 	$back_right.engine_force = acceleration * curTorque * (1 - rpm / curMaxRPM)
 	
-	$UI/speeder.value = rpm
+	$UI/speeder.value = abs(rpm)
 
 puppet func update_state(p_position, p_rpm, p_rotation, p_acceleration):
 		puppetPosition = p_position

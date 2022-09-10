@@ -100,7 +100,8 @@ func finishRace():
 	for id in playerCustomization.keys():
 		var player_instance:Player = get_node(str(id))
 		var score := int($levelSelect/playerList.get_node(str(id) + "/score").text)
-		score += playerCustomization.size() - player_instance.finalPos
+		if playerCustomization.size() == 1: score += 1
+		else: score += playerCustomization.size() - player_instance.finalPos
 		$levelSelect/playerList.get_node(str(id) + "/score").text = str(score)
 		player_instance.camera.current = false
 		player_instance.get_node("UI").visible = false
