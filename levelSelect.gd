@@ -1,14 +1,14 @@
 extends Control
 export(Array, Texture) var worldImages := []
 export(Array, Array, Texture) var levelImages := []
-export(Array, Texture) var readyIcon := []
 
 var worldButtons := ButtonGroup.new()
 var levelButtons := ButtonGroup.new()
 
-var votes := {}
+var gameInterface:Control
 
 func _ready():
+	gameInterface = get_parent().get_parent()
 	var worlds := list_files_in_directory("res://levels")
 	for worldname in worlds:
 		var world := Button.new()
@@ -76,23 +76,15 @@ func _levelPressed():
 		if level == pressedLevel: continue
 		level.modulate = Color(1, 1, 1, 1)
 	pressedLevel.modulate = Color(0.8, 0.8, 0.8, 1)
-	_vote(pressedLevel.name)
+	gameInterface._vote(pressedLevel.name)
 	var allDone := true
 	for id in get_tree().get_network_connected_peers():
 		rpc_id(id, "_vote", pressedLevel.name)
-		if $playerList.get_node(str(id) + "/readyTexture").texture == readyIcon[0]:
+		if $playerList.get_node(str(id) + "/readyTexture").texture == $playerList.readyIcon[0]:
 			allDone = false
 	if get_tree().get_network_unique_id() == 1 and allDone:
-		$begin.disabled = false
+		gameInterface.get_node("begin").disabled = false
 		
-
-remote func _vote(levelName:String):
-	var id = get_tree().get_rpc_sender_id()
-	if id == 0: id = get_tree().get_network_unique_id()
-	votes[id] = levelName
-	$playerList.get_node(str(id) + "/readyTexture").texture = readyIcon[1]
-
-
 func list_files_in_directory(path:String) -> Array:
 	var files = []
 	var dir = Directory.new()
@@ -108,55 +100,3 @@ func list_files_in_directory(path:String) -> Array:
 
 	dir.list_dir_end()
 	return files
-
-func addPlayer(name:String, color:Color, icon:Texture, id:int):
-	var box := HBoxContainer.new()
-	box.alignment = 1
-	var readyTexture = TextureRect.new()
-	readyTexture.name = "readyTexture"
-	readyTexture.texture = readyIcon[0]
-	readyTexture.stretch_mode = 4
-	var texture := TextureRect.new()
-	texture.texture = icon
-	texture.modulate = color
-	var label := Label.new()
-	label.text = name
-	label.add_color_override("font_color", color)
-	var font:Font = load("res://assets/Text/basicFont.tres")
-	label.add_font_override("font", font)
-	var score = Label.new()
-	score.text = str(0)
-	score.add_color_override("font_color", color)
-	score.add_font_override("font", font)
-	score.name = "score"
-	box.add_child(readyTexture)
-	box.add_child(texture)
-	box.add_child(label)
-	box.add_child(score)
-	$playerList.add_child(box)
-	box.add_constant_override("separation", 16)
-	box.name = str(id)
-	pass
-
-func removePlayer(id:int):
-	var box = $playerList.get_node(str(id))
-	remove_child(box)
-	box.queue_free()
-
-func _on_begin_pressed():
-	var keys := votes.keys()
-	var selectedLevel:String = votes[keys[randi() % len(keys)]]
-	_begin(selectedLevel)
-	for id in get_tree().get_network_connected_peers():
-		rpc_id(id, "_begin", selectedLevel)
-
-remote func _begin(levelName:String):
-	var parts := levelName.split("-")
-	var level:Track = load("res://levels/" + parts[0] + "/" + parts[1] + ".tscn").instance()
-	level.name = "level"
-	get_parent().add_child(level)
-	for id in get_tree().get_network_connected_peers():
-		get_parent().get_node(str(id))._start()
-	var id = get_tree().get_network_unique_id()
-	get_parent().get_node(str(id))._start()
-	visible = false

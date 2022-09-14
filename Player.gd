@@ -30,6 +30,7 @@ func updateLook():
 		yield(get_tree(), "idle_frame")
 		return updateLook()
 	$UI/coinCounter/Label.text = str(coins)
+	$UI/lapsCounter.visible = false
 	#get data
 	var customVariables = main.playerCustomization[int(name)]
 	$nametag.text = customVariables.name

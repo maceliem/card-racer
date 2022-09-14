@@ -31,7 +31,7 @@ func _instance_player(id):
 	var customs:Dictionary = playerCustomization[id]
 	var labelname:String = customs.name
 	if id == 1: labelname += " (host)"
-	$levelSelect.addPlayer(labelname, customs.color, icone, id)
+	$gameInterface/playerList.addPlayer(labelname, customs.color, icone, id)
 	
 
 func _player_connected(id):
@@ -51,7 +51,7 @@ func _player_disconnected(id):
 
 	if has_node(str(id)):
 		get_node(str(id)).queue_free()
-		$levelSelect.removePlayer(id)
+		$gameInterface/playerList.removePlayer(id)
 		playerCustomization.erase(id)
 		positions.erase(id)
 
@@ -96,18 +96,18 @@ func _loadGame():
 		$gameElements/Customize/LineEdit.text = ownCustomization.name
 
 func finishRace():
-	$levelSelect.visible = true
-	$levelSelect/begin.disabled = true
-	for world in $levelSelect.worldButtons.get_buttons():
+	$gameInterface.visible = true
+	$gameInterface/begin.disabled = true
+	for world in $gameInterface/TabContainer/levelSelect.worldButtons.get_buttons():
 		world.get_node("grid").visible = false
 		world.get_node("background").visible = false
 	for id in playerCustomization.keys():
-		$levelSelect/playerList.get_node(str(id) + "/readyTexture").texture = $levelSelect.readyIcon[0]
+		$gameInterface/playerList.get_node(str(id) + "/readyTexture").texture = $gameInterface/playerList.readyIcon[0]
 		var player_instance:Player = get_node(str(id))
-		var score := int($levelSelect/playerList.get_node(str(id) + "/score").text)
+		var score := int($gameInterface/playerList.get_node(str(id) + "/score").text)
 		if playerCustomization.size() == 1: score += 1
 		else: score += playerCustomization.size() - player_instance.finalPos
-		$levelSelect/playerList.get_node(str(id) + "/score").text = str(score)
+		$gameInterface/playerList.get_node(str(id) + "/score").text = str(score)
 		player_instance.camera.current = false
 		player_instance.get_node("UI").visible = false
 	$Camera2D.current = true

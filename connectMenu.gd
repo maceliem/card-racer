@@ -21,7 +21,7 @@ func doBoth():
 	var main = get_parent().get_parent()
 	get_parent().hide()
 	main.playerCustomization[id] = main.ownCustomization
-	main.get_node("levelSelect").visible = true
+	main.get_node("gameInterface").visible = true
 	main._saveGame()
 	Global.emit_signal("instance_player", id)
 

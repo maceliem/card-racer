@@ -2,7 +2,7 @@
 
 [ext_resource path="res://connectMenu.gd" type="Script" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
-[ext_resource path="res://levelSelect.tscn" type="PackedScene" id=3]
+[ext_resource path="res://gameInterface.tscn" type="PackedScene" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
 
 [node name="Node" type="Node"]
@@ -79,7 +79,7 @@ margin_top = 20.0
 margin_right = 250.0
 margin_bottom = 40.0
 
-[node name="levelSelect" parent="." instance=ExtResource( 3 )]
+[node name="gameInterface" parent="." instance=ExtResource( 3 )]
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
