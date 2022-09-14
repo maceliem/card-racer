@@ -20,12 +20,16 @@ var countdown := 0
 var laps := -1
 var finalPos:int
 
+var coins := 0
+var coinValue := 1
+	
+
 func updateLook():
 	#Wait until we have data
 	if !main.playerCustomization.has(int(name)):
 		yield(get_tree(), "idle_frame")
 		return updateLook()
-
+	$UI/coinCounter/Label.text = str(coins)
 	#get data
 	var customVariables = main.playerCustomization[int(name)]
 	$nametag.text = customVariables.name
@@ -57,7 +61,9 @@ func _start():
 	global_transform.origin = main.get_node("level").startPositions[main.positions[int(name)]].translation
 	global_rotation = main.get_node("level").startPositions[main.positions[int(name)]].rotation
 	$UI.visible = is_network_master()
+	$UI/countdownText.visible = true
 	countdown = 3
+	laps = -1
 	$countdown.start()
 	sleeping = false 
 	$UI/speeder.max_value = maxRPM

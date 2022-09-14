@@ -122,7 +122,7 @@ func addPlayer(name:String, color:Color, icon:Texture, id:int):
 	var label := Label.new()
 	label.text = name
 	label.add_color_override("font_color", color)
-	var font:Font = load("res://assets/basicFont.tres")
+	var font:Font = load("res://assets/Text/basicFont.tres")
 	label.add_font_override("font", font)
 	var score = Label.new()
 	score.text = str(0)

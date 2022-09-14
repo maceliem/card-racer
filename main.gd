@@ -97,7 +97,12 @@ func _loadGame():
 
 func finishRace():
 	$levelSelect.visible = true
+	$levelSelect/begin.disabled = true
+	for world in $levelSelect.worldButtons.get_buttons():
+		world.get_node("grid").visible = false
+		world.get_node("background").visible = false
 	for id in playerCustomization.keys():
+		$levelSelect/playerList.get_node(str(id) + "/readyTexture").texture = $levelSelect.readyIcon[0]
 		var player_instance:Player = get_node(str(id))
 		var score := int($levelSelect/playerList.get_node(str(id) + "/score").text)
 		if playerCustomization.size() == 1: score += 1
