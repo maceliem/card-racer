@@ -75,7 +75,7 @@ func _physics_process(delta):
 	if is_network_master(): 
 		steering = lerp(steering, Input.get_axis("right", "left") * 0.05, 10 * delta)
 		acceleration = Input.get_axis("break", "accelerate")
-		rpm = $back_left.get_rpm()
+		rpm = abs($back_left.get_rpm())
 	else:
 		global_transform.origin = puppetPosition
 		global_rotation = puppetRotation
@@ -101,7 +101,7 @@ func _physics_process(delta):
 		curTorque *= offroad
 		curMaxRPM *= offroad
 	$back_left.engine_force = acceleration * curTorque * (1 - rpm / curMaxRPM)
-	rpm = $back_right.get_rpm()
+	rpm = abs($back_right.get_rpm())
 	$back_right.engine_force = acceleration * curTorque * (1 - rpm / curMaxRPM)
 	
 	$UI/speeder.value = abs(rpm)

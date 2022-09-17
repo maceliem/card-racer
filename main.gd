@@ -112,3 +112,7 @@ func finishRace():
 		player_instance.get_node("UI").visible = false
 	$Camera2D.current = true
 	get_node("level").queue_free()
+
+
+func _on_FeedbackButton_pressed():
+	$Feedback.visible = true
