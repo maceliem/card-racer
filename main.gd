@@ -26,6 +26,7 @@ func _instance_player(id):
 	player_instance.set_network_master(id)
 	player_instance.name = str(id)
 	add_child(player_instance)
+	move_child(player_instance, 0)
 	while !playerCustomization.has(id):
 		yield(get_tree(), "idle_frame")
 	var customs:Dictionary = playerCustomization[id]
