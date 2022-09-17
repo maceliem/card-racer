@@ -9,8 +9,10 @@ func _ready():
 	data = parse_json(file.get_as_text())
 
 func _on_Submit_pressed():
+	cardDesc = get_parent().ownCustomization.name + " - "
 	cardName = $ColorRect/VBoxContainer/LineEdit.text
-	cardDesc = $ColorRect/VBoxContainer/TextEdit.text
+	cardDesc += $ColorRect/VBoxContainer/TextEdit.text
+	
 	if " " in cardName:
 		cardName = cardName.replace(" ", "%20") 
 	if " " in cardDesc:
