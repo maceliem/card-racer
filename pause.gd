@@ -1,13 +1,7 @@
 extends Control
 
-func _input(event:InputEvent):
-	if event.is_action_pressed("pause"):
-		visible = !visible
-
-
-
 func _on_Continue_pressed():
-	visible = false
+	queue_free()
 
 
 func _on_Settings_pressed():
@@ -32,4 +26,4 @@ func _on_quitFR_pressed():
 
 
 func _on_noQuit_pressed():
-	$quitWarning.visible = false
+	queue_free()

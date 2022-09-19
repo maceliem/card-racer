@@ -1,6 +1,9 @@
 extends Node
 
-var player = preload("res://Player.tscn")
+var player := preload("res://Player.tscn")
+var pauseMenu := preload("res://pause.tscn")
+var feedbackMenu := preload("res://Feedback.tscn")
+
 export(Texture) var icone
 
 var ownCustomization := {
@@ -10,8 +13,8 @@ var ownCustomization := {
 
 var positions := {1:0}
 var playerCustomization := {}
+
 func _ready():
-	var x := true
 	_loadGame()
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
@@ -26,7 +29,6 @@ func _instance_player(id):
 	player_instance.set_network_master(id)
 	player_instance.name = str(id)
 	add_child(player_instance)
-	move_child(player_instance, 0)
 	while !playerCustomization.has(id):
 		yield(get_tree(), "idle_frame")
 	var customs:Dictionary = playerCustomization[id]
@@ -116,4 +118,16 @@ func finishRace():
 
 
 func _on_FeedbackButton_pressed():
-	$Feedback.visible = true
+	var feedbackInstance:Control = feedbackMenu.instance()
+	feedbackInstance.name = "feedbackMenu"
+	add_child(feedbackInstance)
+
+func _input(event:InputEvent):
+	if event.is_action_pressed("pause"):
+		if has_node("pauseMenu"):
+			get_node("pauseMenu").queue_free()
+		else:
+			var pauseInstance:Control = pauseMenu.instance()
+			pauseInstance.name = "pauseMenu"
+			add_child(pauseInstance)
+

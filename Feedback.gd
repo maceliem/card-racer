@@ -9,9 +9,8 @@ func _ready():
 	data = parse_json(file.get_as_text())
 
 func _on_Submit_pressed():
-	cardDesc = get_parent().ownCustomization.name + " - "
 	cardName = $ColorRect/VBoxContainer/LineEdit.text
-	cardDesc += $ColorRect/VBoxContainer/TextEdit.text
+	cardDesc = get_parent().ownCustomization.name + " - " + $ColorRect/VBoxContainer/TextEdit.text
 	
 	if " " in cardName:
 		cardName = cardName.replace(" ", "%20") 
@@ -19,10 +18,8 @@ func _on_Submit_pressed():
 		cardDesc = cardDesc.replace(" ", "%20")
 	if "\n" in cardDesc: 
 		cardDesc = cardDesc.replace("\n", "%0D%0A")
-	$HTTPRequest.request("https://api.trello.com/1/cards?idList="+ data.idList + "&key=" + data.apiKey + "&token=" + data.apiToken + "&name=" + cardName + "&desc=" + cardDesc, [], false, HTTPClient.METHOD_POST)
-	_on_Cancel_pressed()
+	$HTTPRequest.request("https://api.trello.com/1/cards?idList=" + data.idList + "&key=" + data.apiKey + "&token=" + data.apiToken + "&name=" + cardName + "&desc=" + cardDesc, [], false, HTTPClient.METHOD_POST)
+	queue_free()
 
 func _on_Cancel_pressed():
-	$ColorRect/VBoxContainer/LineEdit.text = ""
-	$ColorRect/VBoxContainer/TextEdit.text = ""
-	visible = false
+	queue_free()

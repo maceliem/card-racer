@@ -1,25 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/Text/TangoSans.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Feedback.gd" type="Script" id=2]
-
-[sub_resource type="DynamicFont" id=1]
-size = 48
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 32
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 48
-font_data = ExtResource( 1 )
+[ext_resource path="res://assets/themes/baseUI.tres" type="Theme" id=3]
 
 [sub_resource type="DynamicFont" id=4]
-size = 32
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=5]
 size = 32
 font_data = ExtResource( 1 )
 
@@ -32,6 +17,7 @@ margin_left = -325.5
 margin_top = -413.5
 margin_right = 325.5
 margin_bottom = 413.5
+theme = ExtResource( 3 )
 script = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -55,7 +41,6 @@ alignment = 1
 margin_top = 40.0
 margin_right = 600.0
 margin_bottom = 89.0
-custom_fonts/font = SubResource( 1 )
 text = "Title"
 align = 1
 
@@ -63,13 +48,11 @@ align = 1
 margin_top = 127.0
 margin_right = 600.0
 margin_bottom = 170.0
-custom_fonts/font = SubResource( 2 )
 
 [node name="Description" type="Label" parent="ColorRect/VBoxContainer"]
 margin_top = 208.0
 margin_right = 600.0
 margin_bottom = 257.0
-custom_fonts/font = SubResource( 3 )
 text = "Description"
 align = 1
 
@@ -79,8 +62,6 @@ margin_right = 600.0
 margin_bottom = 695.0
 rect_min_size = Vector2( 0, 400 )
 custom_fonts/font = SubResource( 4 )
-text = "
-"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
 margin_top = 733.0
@@ -94,7 +75,6 @@ margin_left = 60.0
 margin_right = 260.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 200, 50 )
-custom_fonts/font = SubResource( 5 )
 text = "Cancel"
 
 [node name="Submit" type="Button" parent="ColorRect/VBoxContainer/HBoxContainer"]
@@ -102,7 +82,6 @@ margin_left = 340.0
 margin_right = 540.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 200, 50 )
-custom_fonts/font = SubResource( 5 )
 text = "Submit"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
