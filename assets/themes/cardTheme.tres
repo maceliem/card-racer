@@ -1,0 +1,60 @@
+[gd_resource type="Theme" load_steps=9 format=2]
+
+[ext_resource path="res://assets/Text/baseUIFont.tres" type="DynamicFont" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.298039, 0.172549, 0.447059, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.486275, 0.54902, 0.576471, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.39, 0.39, 0.39, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.25, 0.25, 0.25, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.298039, 0.172549, 0.447059, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.215686, 0.0980392, 0.360784, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.156863, 0.0627451, 0.27451, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.239216, 0.333333, 0.572549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.133333, 0.215686, 0.423529, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.054902, 0.109804, 0.254902, 1 )
+
+[resource]
+default_font = ExtResource( 1 )
+Label/styles/normal = SubResource( 1 )
+VBoxContainer/constants/separation = 32
+commonCard/base_type = "Button"
+commonCard/styles/normal = SubResource( 3 )
+commonLabel/base_type = "Label"
+commonLabel/styles/normal = SubResource( 2 )
+epicCard/base_type = "Button"
+epicCard/styles/normal = SubResource( 6 )
+epicLabel/base_type = "Label"
+epicLabel/styles/normal = SubResource( 7 )
+rareCard/base_type = "Button"
+rareCard/styles/normal = SubResource( 4 )
+rareLabel/base_type = "Label"
+rareLabel/styles/normal = SubResource( 5 )
