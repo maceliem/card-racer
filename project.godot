@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://card.gd"
 }, {
+"base": "Node",
+"class": "Main",
+"language": "GDScript",
+"path": "res://main.gd"
+}, {
 "base": "VehicleBody",
 "class": "Player",
 "language": "GDScript",
@@ -26,6 +31,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Card": "",
+"Main": "",
 "Player": "",
 "Track": ""
 }

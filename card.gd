@@ -18,6 +18,7 @@ var modifiers := {
 }
 
 func _ready():
+	connect("pressed", self, "_on_card_pressed")
 	rect_min_size = Vector2(height / ratio, height)
 	theme = load("res://assets/themes/cardTheme.tres")
 	theme_type_variation = rarityName[rarity]+"Card"
@@ -45,6 +46,19 @@ func _ready():
 	center.add_child(texture)
 
 	#description of card
+	var bottomText := Label.new()
+	bottomText.text = description
+	bottomText.mouse_filter = 1
+	bottomText.autowrap = true
+	bottomText.theme_type_variation = "description"
+	vbox.add_child(bottomText)
+
+	#price indicator
+	var priceLabel := Label.new()
+	priceLabel.text = str(price)
+	priceLabel.mouse_filter = 1
+	add_child(priceLabel)
+	priceLabel.rect_position = Vector2(rect_size.x - priceLabel.rect_size.x - 4, title.rect_size.y)
 	
 	
 
@@ -68,3 +82,19 @@ func _get_property_list() -> Array:
 		"type": typeof(modifiers[key])
 		})
 	return props
+
+
+func _on_card_pressed():
+	if get_tree().current_scene.name != "main": return
+	var main:Main = get_tree().current_scene
+	var player:Player = main.get_node(str(get_tree().get_network_unique_id()))
+	if player.coins >= price:
+		player.coins -= price
+		main.get_node("gameInterface/TabContainer/Shop/coinCounter/Label").text = str(player.coins)
+		if modifiers.rubyChance > 0:
+			if !main.coinChance.keys().has("ruby"):
+				main.coinChance.ruby = modifiers.rubyChance
+			else:
+				main.coinChance.ruby += modifiers.rubyChance
+
+		queue_free()

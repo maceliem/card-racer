@@ -1,4 +1,5 @@
 extends Node
+class_name Main
 
 var player := preload("res://Player.tscn")
 var pauseMenu := preload("res://pause.tscn")
@@ -13,6 +14,10 @@ var ownCustomization := {
 
 var positions := {1:0}
 var playerCustomization := {}
+
+var coinChance := {
+	"coin": 100
+}
 
 func _ready():
 	_loadGame()
@@ -101,7 +106,7 @@ func _loadGame():
 func finishRace():
 	$gameInterface.visible = true
 	$gameInterface/begin.disabled = true
-	for world in $gameInterface/TabContainer/levelSelect.worldButtons.get_buttons():
+	for world in $gameInterface/TabContainer/LevelSelect.worldButtons.get_buttons():
 		world.get_node("grid").visible = false
 		world.get_node("background").visible = false
 	for id in playerCustomization.keys():
@@ -111,8 +116,10 @@ func finishRace():
 		if playerCustomization.size() == 1: score += 1
 		else: score += playerCustomization.size() - player_instance.finalPos
 		$gameInterface/playerList.get_node(str(id) + "/score").text = str(score)
-		player_instance.camera.current = false
-		player_instance.get_node("UI").visible = false
+	var ownPlayer:Player = get_node(str(get_tree().get_network_unique_id()))
+	ownPlayer.camera.current = false
+	ownPlayer.get_node("UI").visible = false
+	$gameInterface/TabContainer/Shop/coinCounter/Label.text = str(ownPlayer.coins)
 	$Camera2D.current = true
 	get_node("level").queue_free()
 

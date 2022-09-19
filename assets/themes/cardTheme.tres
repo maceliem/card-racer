@@ -1,13 +1,6 @@
-[gd_resource type="Theme" load_steps=9 format=2]
+[gd_resource type="Theme" load_steps=10 format=2]
 
 [ext_resource path="res://assets/Text/baseUIFont.tres" type="DynamicFont" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.298039, 0.172549, 0.447059, 1 )
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.486275, 0.54902, 0.576471, 1 )
@@ -19,6 +12,12 @@ border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color( 0.25, 0.25, 0.25, 1 )
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/Text/TangoSans.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+font_data = SubResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.298039, 0.172549, 0.447059, 1 )
@@ -44,12 +43,13 @@ border_color = Color( 0.054902, 0.109804, 0.254902, 1 )
 
 [resource]
 default_font = ExtResource( 1 )
-Label/styles/normal = SubResource( 1 )
 VBoxContainer/constants/separation = 32
 commonCard/base_type = "Button"
 commonCard/styles/normal = SubResource( 3 )
 commonLabel/base_type = "Label"
 commonLabel/styles/normal = SubResource( 2 )
+description/base_type = "Label"
+description/fonts/font = SubResource( 8 )
 epicCard/base_type = "Button"
 epicCard/styles/normal = SubResource( 6 )
 epicLabel/base_type = "Label"

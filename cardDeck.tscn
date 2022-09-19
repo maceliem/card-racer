@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://assets/cards/ruby.png" type="Texture" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://assets/themes/cardTheme.tres" type="Theme" id=3]
 [ext_resource path="res://card.gd" type="Script" id=4]
@@ -13,16 +14,18 @@ custom_constants/vseparation = 32
 custom_constants/hseparation = 32
 columns = 3
 
-[node name="Control" type="Button" parent="."]
+[node name="ruby" type="Button" parent="."]
 margin_right = 182.857
 margin_bottom = 256.0
 rect_min_size = Vector2( 182.857, 256 )
 theme = ExtResource( 3 )
 theme_type_variation = "commonCard"
 script = ExtResource( 4 )
-image = ExtResource( 2 )
-cardName = "Bob"
-modifiers/rubyChance = 0
+image = ExtResource( 1 )
+cardName = "Ruby"
+price = 5
+description = "+20% chance for ruby"
+modifiers/rubyChance = 20
 modifiers/shiny = false
 
 [node name="Card" type="Button" parent="."]
@@ -36,7 +39,8 @@ script = ExtResource( 4 )
 image = ExtResource( 2 )
 cardName = "FancyBob"
 rarity = 1
-price = null
+price = 99
+description = "He's Bob"
 modifiers/rubyChance = 0
 modifiers/shiny = false
 
@@ -51,6 +55,7 @@ script = ExtResource( 4 )
 image = ExtResource( 2 )
 cardName = "DopeBob"
 rarity = 2
-price = null
+price = 99
+description = "He's Bob"
 modifiers/rubyChance = 0
 modifiers/shiny = false

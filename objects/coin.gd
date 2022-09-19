@@ -1,7 +1,7 @@
 extends Area
 tool
 
-var type := "ruby"
+var type := "ruby" setget updateCoin 
 
 func _on_coin_body_entered(body:Node):
 	if body.name == "Road": return
@@ -19,9 +19,17 @@ func _ready():
 	coin.name = "coin"
 	add_child(coin)
 	if Engine.editor_hint:
-		$coin.scale = Vector3(30,30,30)
-		$coin.rotation_degrees.x = 90
+		coin.scale = Vector3(30,30,30)
+		coin.rotation_degrees.x = 90
 	else:
-		$coin.scale = Vector3(10,10,10)
-		$coin.rotation_degrees.x = 0
+		coin.scale = Vector3(10,10,10)
+		coin.rotation_degrees.x = 0
 		$AnimationPlayer.play("spin")
+
+func updateCoin(name:String):
+	remove_child(get_node("coin"))
+	var coin = load("res://assets/Objects/"+name+".glb").instance()
+	coin.name = "coin"
+	coin.scale = Vector3(10,10,10)
+	coin.rotation_degrees.x = 0
+	add_child(coin)

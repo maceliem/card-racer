@@ -10,7 +10,7 @@
 size = 40
 font_data = ExtResource( 5 )
 
-[node name="Node" type="Node"]
+[node name="main" type="Node"]
 script = ExtResource( 2 )
 icone = ExtResource( 4 )
 
