@@ -1,11 +1,13 @@
 extends Control
 
+var settingsMenu := preload("settingsMenu.tscn").instance()
+
 func _on_Continue_pressed():
 	queue_free()
 
 
 func _on_Settings_pressed():
-	pass # Replace with function body.
+	add_child(settingsMenu)
 
 
 func _on_Quit_pressed():

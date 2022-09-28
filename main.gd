@@ -19,8 +19,10 @@ var coinChance := {
 	"coin": 100
 }
 
-func _ready():
+func _init():
 	Global.main = self
+
+func _ready():
 	_loadGame()
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
