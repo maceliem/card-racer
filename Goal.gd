@@ -16,5 +16,5 @@ func _on_Area_body_entered(body:Node):
 		body.steering = 0
 		body.get_node("back_left").engine_force = 0
 		body.get_node("back_right").engine_force = 0
-		if inGoal == get_parent().get_parent().playerCustomization.size():
-			get_parent().get_parent().finishRace()
+		if inGoal == Global.main.playerCustomization.size():
+			Global.main.finishRace()

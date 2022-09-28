@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/cards/ruby.png" type="Texture" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://assets/themes/cardTheme.tres" type="Theme" id=3]
-[ext_resource path="res://card.gd" type="Script" id=4]
+[ext_resource path="res://card.gd" type="Script" id=5]
 
 [node name="GridContainer" type="GridContainer"]
 anchor_right = 1.0
@@ -12,50 +12,250 @@ margin_left = 0.346
 margin_right = 0.345947
 custom_constants/vseparation = 32
 custom_constants/hseparation = 32
-columns = 3
+columns = 6
 
 [node name="ruby" type="Button" parent="."]
-margin_right = 182.857
-margin_bottom = 256.0
-rect_min_size = Vector2( 182.857, 256 )
+margin_right = 274.286
+margin_bottom = 384.0
+rect_min_size = Vector2( 274.286, 384 )
 theme = ExtResource( 3 )
 theme_type_variation = "commonCard"
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 image = ExtResource( 1 )
 cardName = "Ruby"
-price = 5
-description = "+20% chance for ruby"
+description = "+Higher chance for ruby instead of coin"
 modifiers/rubyChance = 20
-modifiers/shiny = false
+modifiers/offroad = 0.0
+modifiers/maxRPM = 0
+modifiers/maxTorque = 0
+modifiers/headstart = 0
+modifiers/disableBreaks = false
+modifiers/handelingSpeed = 0
+modifiers/handelingAmount = 0
+modifiers/scale = 0
+modifiers/mass = 0
 
-[node name="Card" type="Button" parent="."]
-margin_left = 214.0
-margin_right = 396.857
-margin_bottom = 256.0
-rect_min_size = Vector2( 182.857, 256 )
+[node name="improvedOffroad" type="Button" parent="."]
+margin_left = 306.0
+margin_right = 580.286
+margin_bottom = 384.0
+rect_min_size = Vector2( 274.286, 384 )
+theme = ExtResource( 3 )
+theme_type_variation = "commonCard"
+script = ExtResource( 5 )
+image = ExtResource( 2 )
+cardName = "Improved offroad"
+price = 20
+description = "+ Better driving offroad "
+modifiers/rubyChance = 0
+modifiers/offroad = 0.1
+modifiers/maxRPM = 0
+modifiers/maxTorque = 0
+modifiers/headstart = 0
+modifiers/disableBreaks = false
+modifiers/handelingSpeed = 0
+modifiers/handelingAmount = 0
+modifiers/scale = 0
+modifiers/mass = 0
+
+[node name="betterGrip" type="Button" parent="."]
+margin_left = 612.0
+margin_right = 886.286
+margin_bottom = 384.0
+rect_min_size = Vector2( 274.286, 384 )
 theme = ExtResource( 3 )
 theme_type_variation = "rareCard"
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 image = ExtResource( 2 )
-cardName = "FancyBob"
+cardName = "Better grip"
 rarity = 1
-price = 99
-description = "He's Bob"
+price = 40
+description = "+ Better driving offroad 
++ Better acceleration"
 modifiers/rubyChance = 0
-modifiers/shiny = false
+modifiers/offroad = 0.1
+modifiers/maxRPM = 0
+modifiers/maxTorque = 500
+modifiers/headstart = 0
+modifiers/disableBreaks = false
+modifiers/handelingSpeed = 0
+modifiers/handelingAmount = 0
+modifiers/scale = 0
+modifiers/mass = 0
 
-[node name="Card2" type="Button" parent="."]
-margin_left = 428.0
-margin_right = 610.857
-margin_bottom = 256.0
-rect_min_size = Vector2( 182.857, 256 )
+[node name="offroadVehicle" type="Button" parent="."]
+margin_left = 918.0
+margin_right = 1192.29
+margin_bottom = 384.0
+rect_min_size = Vector2( 274.286, 384 )
 theme = ExtResource( 3 )
 theme_type_variation = "epicCard"
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 image = ExtResource( 2 )
-cardName = "DopeBob"
+cardName = "Offroad Vehicle"
 rarity = 2
-price = 99
-description = "He's Bob"
+price = 50
+description = "+Much better driving offroad
+-less top speed"
 modifiers/rubyChance = 0
-modifiers/shiny = false
+modifiers/offroad = 0.3
+modifiers/maxRPM = -500
+modifiers/maxTorque = 0
+modifiers/headstart = 0
+modifiers/disableBreaks = false
+modifiers/handelingSpeed = 0
+modifiers/handelingAmount = 0
+modifiers/scale = 0
+modifiers/mass = 0
+
+[node name="cheater" type="Button" parent="."]
+margin_left = 1224.0
+margin_right = 1498.29
+margin_bottom = 384.0
+rect_min_size = Vector2( 274.286, 384 )
+theme = ExtResource( 3 )
+theme_type_variation = "rareCard"
+script = ExtResource( 5 )
+image = ExtResource( 2 )
+cardName = "Cheater"
+rarity = 1
+price = 40
+description = "+Start run earlier"
+modifiers/rubyChance = 0
+modifiers/offroad = 0.0
+modifiers/maxRPM = 0
+modifiers/maxTorque = 0
+modifiers/headstart = -2
+modifiers/disableBreaks = false
+modifiers/handelingSpeed = 0
+modifiers/handelingAmount = 0
+modifiers/scale = 0
+modifiers/mass = 0
+
+[node name="patient" type="Button" parent="."]
+margin_left = 1530.0
+margin_right = 1804.29
+margin_bottom = 384.0
+rect_min_size = Vector2( 274.286, 384 )
+theme = ExtResource( 3 )
+theme_type_variation = "epicCard"
+script = ExtResource( 5 )
+image = ExtResource( 2 )
+cardName = "Patient"
+rarity = 2
+price = 50
+description = "+Much higher top speed
+-Less acceleration
+-Start later"
+modifiers/rubyChance = 0
+modifiers/offroad = 0.0
+modifiers/maxRPM = 2000
+modifiers/maxTorque = -500
+modifiers/headstart = 5
+modifiers/disableBreaks = false
+modifiers/handelingSpeed = 0
+modifiers/handelingAmount = 0
+modifiers/scale = 0
+modifiers/mass = 0
+
+[node name="driftKing" type="Button" parent="."]
+margin_top = 416.0
+margin_right = 274.286
+margin_bottom = 800.0
+rect_min_size = Vector2( 274.286, 384 )
+theme = ExtResource( 3 )
+theme_type_variation = "epicCard"
+script = ExtResource( 5 )
+image = ExtResource( 2 )
+cardName = "Drift King"
+rarity = 2
+price = 50
+description = "+Much higher acceleration
++Much better handeling
++Higher top speed
+-No breaks"
+modifiers/rubyChance = 0
+modifiers/offroad = 0.0
+modifiers/maxRPM = 2000
+modifiers/maxTorque = 800
+modifiers/headstart = 0
+modifiers/disableBreaks = true
+modifiers/handelingSpeed = 10
+modifiers/handelingAmount = 0
+modifiers/scale = 0
+modifiers/mass = 0
+
+[node name="betterEngine" type="Button" parent="."]
+margin_left = 306.0
+margin_top = 416.0
+margin_right = 580.286
+margin_bottom = 800.0
+rect_min_size = Vector2( 274.286, 384 )
+theme = ExtResource( 3 )
+theme_type_variation = "commonCard"
+script = ExtResource( 5 )
+image = ExtResource( 2 )
+cardName = "Better engine"
+price = 20
+description = "+Higher speed
++Higher acceleration"
+modifiers/rubyChance = 0
+modifiers/offroad = 0.0
+modifiers/maxRPM = 1000
+modifiers/maxTorque = 200
+modifiers/headstart = 0
+modifiers/disableBreaks = false
+modifiers/handelingSpeed = 0
+modifiers/handelingAmount = 0
+modifiers/scale = 0
+modifiers/mass = 0
+
+[node name="betterControl" type="Button" parent="."]
+margin_left = 612.0
+margin_top = 416.0
+margin_right = 886.286
+margin_bottom = 800.0
+rect_min_size = Vector2( 274.286, 384 )
+theme = ExtResource( 3 )
+theme_type_variation = "commonCard"
+script = ExtResource( 5 )
+image = ExtResource( 2 )
+cardName = "Better control"
+price = 20
+description = "+Better handeling"
+modifiers/rubyChance = 0
+modifiers/offroad = 0.0
+modifiers/maxRPM = 0
+modifiers/maxTorque = 0
+modifiers/headstart = 0
+modifiers/disableBreaks = false
+modifiers/handelingSpeed = 0
+modifiers/handelingAmount = 0
+modifiers/scale = 0
+modifiers/mass = 0
+
+[node name="biggerCar" type="Button" parent="."]
+margin_left = 918.0
+margin_top = 416.0
+margin_right = 1192.29
+margin_bottom = 800.0
+rect_min_size = Vector2( 274.286, 384 )
+theme = ExtResource( 3 )
+theme_type_variation = "rareCard"
+script = ExtResource( 5 )
+image = ExtResource( 2 )
+cardName = "Bigger car"
+rarity = 1
+price = 30
+description = "+Bigger car
++Better acceleration"
+modifiers/rubyChance = 0
+modifiers/offroad = 0.0
+modifiers/maxRPM = 0
+modifiers/maxTorque = 1500
+modifiers/headstart = 0
+modifiers/disableBreaks = false
+modifiers/handelingSpeed = 0
+modifiers/handelingAmount = 0
+modifiers/scale = 2
+modifiers/mass = 20

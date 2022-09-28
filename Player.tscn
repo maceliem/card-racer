@@ -38,6 +38,7 @@ font_data = ExtResource( 6 )
 [node name="VehicleBody" type="VehicleBody"]
 collision_layer = 3
 collision_mask = 3
+mass = 80.0
 sleeping = true
 linear_damp = 0.5
 script = ExtResource( 2 )

@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Text/TangoSans.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/UI/Coin.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/reload.png" type="Texture" id=3]
 [ext_resource path="res://shop.gd" type="Script" id=4]
+[ext_resource path="res://assets/themes/baseUI.tres" type="Theme" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 75
@@ -13,12 +15,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -375.0
 margin_bottom = -92.0
+theme = ExtResource( 5 )
 script = ExtResource( 4 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.14902, 0.0117647, 0.0862745, 1 )
+color = Color( 0.196078, 0.0117647, 0.0117647, 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.5
@@ -32,6 +35,27 @@ margin_bottom = 128.0
 custom_constants/separation = 250
 alignment = 1
 
+[node name="fakeCard1" type="ColorRect" parent="HBoxContainer"]
+margin_left = 47.0
+margin_right = 321.286
+margin_bottom = 384.0
+rect_min_size = Vector2( 274.286, 384 )
+color = Color( 0.341176, 0.341176, 0.341176, 1 )
+
+[node name="fakeCard2" type="ColorRect" parent="HBoxContainer"]
+margin_left = 571.0
+margin_right = 845.286
+margin_bottom = 384.0
+rect_min_size = Vector2( 274.286, 384 )
+color = Color( 0.341176, 0.341176, 0.341176, 1 )
+
+[node name="fakeCard3" type="ColorRect" parent="HBoxContainer"]
+margin_left = 1095.0
+margin_right = 1369.29
+margin_bottom = 384.0
+rect_min_size = Vector2( 274.286, 384 )
+color = Color( 0.341176, 0.341176, 0.341176, 1 )
+
 [node name="coinCounter" type="HBoxContainer" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
@@ -41,7 +65,6 @@ grow_horizontal = 0
 alignment = 2
 
 [node name="Label" type="Label" parent="coinCounter"]
-margin_top = 5.0
 margin_right = 50.0
 margin_bottom = 75.0
 custom_fonts/font = SubResource( 1 )
@@ -49,7 +72,61 @@ text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="coinCounter"]
 margin_left = 54.0
-margin_top = 5.0
 margin_right = 118.0
 margin_bottom = 75.0
 texture = ExtResource( 2 )
+
+[node name="refresh" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -440.0
+margin_top = -244.0
+margin_right = -45.0
+margin_bottom = -174.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="refresh"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 21
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="refresh/HBoxContainer"]
+margin_left = 8.0
+margin_right = 285.0
+margin_bottom = 70.0
+custom_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="refresh/HBoxContainer/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 70.0
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="refresh/HBoxContainer/HBoxContainer"]
+margin_left = 80.0
+margin_top = 10.0
+margin_right = 277.0
+margin_bottom = 59.0
+text = "Refresh"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="refresh/HBoxContainer"]
+margin_left = 306.0
+margin_right = 386.0
+margin_bottom = 70.0
+custom_constants/separation = 0
+alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="refresh/HBoxContainer/HBoxContainer2"]
+margin_right = 64.0
+margin_bottom = 70.0
+texture = ExtResource( 2 )
+
+[node name="Label2" type="Label" parent="refresh/HBoxContainer/HBoxContainer2"]
+margin_left = 64.0
+margin_top = 10.0
+margin_right = 80.0
+margin_bottom = 59.0
+text = "1"
+
+[connection signal="pressed" from="refresh" to="." method="_on_refresh_pressed"]

@@ -8,7 +8,7 @@ var levelButtons := ButtonGroup.new()
 var gameInterface:Control
 
 func _ready():
-	gameInterface = get_parent().get_parent()
+	gameInterface = Global.main.get_node("gameInterface")
 	var worlds := list_files_in_directory("res://levels")
 	for worldname in worlds:
 		var world := Button.new()

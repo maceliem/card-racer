@@ -1,11 +1,16 @@
 extends Area
 tool
 
-var type := "ruby" setget updateCoin 
+var type := "coin" setget updateCoin 
+
+var values := {
+	"coin":1,
+	"ruby":2,
+}
 
 func _on_coin_body_entered(body:Node):
 	if body.name == "Road": return
-	body.coins += body.coinValue
+	body.coins += values[type]
 	body.get_node("UI/coinCounter/Label").text = str(body.coins)
 	visible = false
 	$Timer.start()

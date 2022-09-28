@@ -20,6 +20,7 @@ var coinChance := {
 }
 
 func _ready():
+	Global.main = self
 	_loadGame()
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")

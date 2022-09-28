@@ -1,11 +1,14 @@
 class_name Player
 extends VehicleBody
 
-var main:Node
 
-var maxRPM := 3000
-var maxTorque := 800
+var maxRPM := 4000
+var maxTorque := 2000
 var offroad := 0.5
+var workingBreaks := true
+var handelingSpeed := 2
+var handelingAmount := 0.02
+
 
 var rpm
 var acceleration
@@ -16,23 +19,22 @@ var puppetAcceleration := 0.0
 
 var startPos := 0
 var countdown := 0
+var countdownTime := 5
 
 var laps := -1
 var finalPos:int
 
 var coins := 0
-var coinValue := 1
-	
 
 func updateLook():
 	#Wait until we have data
-	if !main.playerCustomization.has(int(name)):
+	if !Global.main.playerCustomization.has(int(name)):
 		yield(get_tree(), "idle_frame")
 		return updateLook()
 	$UI/coinCounter/Label.text = str(coins)
 	$UI/lapsCounter.visible = false
 	#get data
-	var customVariables = main.playerCustomization[int(name)]
+	var customVariables = Global.main.playerCustomization[int(name)]
 	$nametag.text = customVariables.name
 	for child in $body.get_children():
 		if child.material == null: #createMaterial
@@ -45,11 +47,12 @@ export(NodePath) onready var networckTickRate = get_node(networckTickRate) as Ti
 export(NodePath) onready var movementTween = get_node(movementTween) as Tween
 
 func _ready():
+	if is_network_master(): Global.player = self
 	contact_monitor = true
 	contacts_reported = 1000
 	$Camera.current = false
 	$UI.visible = false
-	main = get_parent()
+	Global.main = get_parent()
 
 
 func _start():
@@ -59,11 +62,12 @@ func _start():
 	updateLook()
 	camera.current = is_network_master()
 	$nametag.visible = !is_network_master()
-	global_transform.origin = main.get_node("level").startPositions[main.positions[int(name)]].translation
-	global_rotation = main.get_node("level").startPositions[main.positions[int(name)]].rotation
+	global_transform.origin = Global.main.get_node("level").startPositions[Global.main.positions[int(name)]].translation
+	global_rotation = Global.main.get_node("level").startPositions[Global.main.positions[int(name)]].rotation
 	$UI.visible = is_network_master()
 	$UI/countdownText.visible = true
-	countdown = 3
+	countdown = countdownTime
+	$UI/countdownText.text = str(countdown)
 	laps = -1
 	$countdown.start()
 	sleeping = false 
@@ -73,8 +77,12 @@ func _start():
 func _physics_process(delta):
 	if countdown>0: return
 	if is_network_master(): 
-		steering = lerp(steering, Input.get_axis("right", "left") * 0.05, 10 * delta)
-		acceleration = Input.get_axis("break", "accelerate")
+		steering = lerp(steering, Input.get_axis("right", "left") * handelingAmount, handelingSpeed * delta)
+		#if breaks arent working, we only apply acceleration, if car is still, or if input maches direction (+ & + || - & -)
+		if workingBreaks or abs($back_left.get_rpm()) <= 200 or $back_left.get_rpm() * Input.get_axis("break", "accelerate") > 0:
+			acceleration = Input.get_axis("break", "accelerate")
+#		else:
+#			acceleration = 0
 		rpm = abs($back_left.get_rpm())
 	else:
 		global_transform.origin = puppetPosition

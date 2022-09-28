@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=2]
+[gd_resource type="Theme" load_steps=11 format=2]
 
 [ext_resource path="res://assets/Text/baseUIFont.tres" type="DynamicFont" id=1]
 
@@ -17,7 +17,13 @@ border_color = Color( 0.25, 0.25, 0.25, 1 )
 font_path = "res://assets/Text/TangoSans.ttf"
 
 [sub_resource type="DynamicFont" id=8]
+size = 18
+extra_spacing_bottom = 8
 font_data = SubResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=9]
+content_margin_left = 28.0
+content_margin_right = 28.0
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.298039, 0.172549, 0.447059, 1 )
@@ -50,6 +56,7 @@ commonLabel/base_type = "Label"
 commonLabel/styles/normal = SubResource( 2 )
 description/base_type = "Label"
 description/fonts/font = SubResource( 8 )
+description/styles/normal = SubResource( 9 )
 epicCard/base_type = "Button"
 epicCard/styles/normal = SubResource( 6 )
 epicLabel/base_type = "Label"
