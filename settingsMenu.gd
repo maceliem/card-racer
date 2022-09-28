@@ -2,12 +2,12 @@ extends Control
 
 var controls := ["accelerate", "break", "left", "right", "pause"]
 
-var selecting:= []
+var selecting := []
 
 var x
 
+
 func _ready():
-	
 	for controlName in controls:
 		var keyName: String = InputMap.get_action_list(controlName)[0].as_text()
 		var hbox := HBoxContainer.new()
@@ -28,7 +28,7 @@ func _ready():
 		hbox.add_child(button)
 
 
-func buttonPress(button: Button, controlName:String):
+func buttonPress(button: Button, controlName: String):
 	if selecting != []:
 		return
 	selecting = [button, controlName]
@@ -42,7 +42,7 @@ func _input(event: InputEvent):
 		return
 	if event.as_text() == "Meta+":  #Win key
 		return
-	var multi := [16777237, 16777238, 16777240] #Shift, Control, Alt
+	var multi := [16777237, 16777238, 16777240]  #Shift, Control, Alt
 	selecting[0].text = event.as_text()
 	if !multi.has(event.get_scancode()):
 		InputMap.action_erase_event(selecting[1], InputMap.get_action_list(selecting[1])[0])

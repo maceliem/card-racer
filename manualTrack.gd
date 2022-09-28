@@ -5,15 +5,16 @@ var startPositions := []
 export(Texture) var preview
 export var maxLaps := 3
 
-func _ready():
 
+func _ready():
 	$Road.translation.y = 0
 	for child in $startPositions.get_children():
 		startPositions.push_back(child)
-	
+
 	var i := 0
 	for type in Global.main.coinChance.keys():
-		if type == "coins":continue
+		if type == "coins":
+			continue
 		i += Global.main.coinChance[type]
 	Global.main.coinChance.coins = 100 - i
 

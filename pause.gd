@@ -2,6 +2,7 @@ extends Control
 
 var settingsMenu := preload("settingsMenu.tscn").instance()
 
+
 func _on_Continue_pressed():
 	queue_free()
 
@@ -18,7 +19,7 @@ func _on_Quit_pressed():
 		$quitWarning.visible = true
 	else:
 		get_tree().quit()
-	
+
 
 func _on_quitFR_pressed():
 	for id in get_tree().get_network_connected_peers():

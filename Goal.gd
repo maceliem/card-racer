@@ -2,10 +2,16 @@ extends Spatial
 
 var inGoal := 0
 
-func _on_Area_body_entered(body:Node):
-	if body.name == "Road": return
+
+func _on_Area_body_entered(body: Node):
+	if body.name == "Road":
+		return
 	body.laps += 1
-	body.get_node("UI/lapsCounter").text = str(body.laps+1) + "\n /\n  " + str(get_parent().maxLaps)
+	body.get_node("UI/lapsCounter").text = (
+		str(body.laps + 1)
+		+ "\n /\n  "
+		+ str(get_parent().maxLaps)
+	)
 	body.get_node("UI/lapsCounter").visible = true
 	body.get_node("UI/lapsCounter/lapsTimer").start()
 	if body.laps >= get_parent().maxLaps:

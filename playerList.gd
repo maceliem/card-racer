@@ -2,7 +2,8 @@ extends VBoxContainer
 
 export(Array, Texture) var readyIcon := []
 
-func addPlayer(name:String, color:Color, icon:Texture, id:int):
+
+func addPlayer(name: String, color: Color, icon: Texture, id: int):
 	var box := HBoxContainer.new()
 	box.alignment = 1
 	var readyTexture = TextureRect.new()
@@ -15,7 +16,7 @@ func addPlayer(name:String, color:Color, icon:Texture, id:int):
 	var label := Label.new()
 	label.text = name
 	label.add_color_override("font_color", color)
-	var font:Font = load("res://assets/Text/basicFont.tres")
+	var font: Font = load("res://assets/Text/basicFont.tres")
 	label.add_font_override("font", font)
 	var score = Label.new()
 	score.text = str(0)
@@ -31,7 +32,8 @@ func addPlayer(name:String, color:Color, icon:Texture, id:int):
 	box.name = str(id)
 	pass
 
-func removePlayer(id:int):
+
+func removePlayer(id: int):
 	var box = get_node(str(id))
 	remove_child(box)
 	box.queue_free()

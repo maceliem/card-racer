@@ -5,7 +5,8 @@ export(Array, Array, Texture) var levelImages := []
 var worldButtons := ButtonGroup.new()
 var levelButtons := ButtonGroup.new()
 
-var gameInterface:Control
+var gameInterface: Control
+
 
 func _ready():
 	gameInterface = Global.main.get_node("gameInterface")
@@ -17,19 +18,19 @@ func _ready():
 		world.icon_align = 1
 		world.set_button_group(worldButtons)
 		world.connect("pressed", self, "_worldPressed")
-		if len(worldImages) >= int(worldname) and worldImages[int(worldname)-1] != null: #check if world image has been made
-			world.icon = worldImages[int(worldname)-1]
-		else: #if not, we just display the name
+		if len(worldImages) >= int(worldname) and worldImages[int(worldname) - 1] != null:  #check if world image has been made
+			world.icon = worldImages[int(worldname) - 1]
+		else:  #if not, we just display the name
 			world.text = "world: " + worldname
 		$GridContainer.add_child(world)
-		
+
 		var worldGrid := GridContainer.new()
 		worldGrid.columns = 4
 		worldGrid.visible = false
 		worldGrid.name = "grid"
-		worldGrid.rect_position = Vector2(0- world.rect_position.x, 262 - world.rect_position.y)
+		worldGrid.rect_position = Vector2(0 - world.rect_position.x, 262 - world.rect_position.y)
 		worldGrid.rect_min_size = Vector2(1406, 456)
-		
+
 		var levels := list_files_in_directory("res://levels/" + worldname)
 		for levelname in levels:
 			var level = Button.new()
@@ -37,8 +38,11 @@ func _ready():
 			levelname = levelname.split(".")[0]
 			level.name = worldname + "-" + levelname
 			level.icon_align = 1
-			if len(levelImages) >= int(levelname) and levelImages[int(worldname)-1][int(levelname)] != null:
-				level.icon = levelImages[int(worldname)-1][int(levelname)]
+			if (
+				len(levelImages) >= int(levelname)
+				and levelImages[int(worldname) - 1][int(levelname)] != null
+			):
+				level.icon = levelImages[int(worldname) - 1][int(levelname)]
 			else:
 				level.text = worldname + "-" + levelname
 			level.set_button_group(levelButtons)
@@ -53,27 +57,39 @@ func _ready():
 		world.add_child(worldBackground)
 		world.add_child(worldGrid)
 
+
 func _worldPressed():
 	var worlds := worldButtons.get_buttons()
 	var pressedWorld := worldButtons.get_pressed_button()
 	for world in worlds:
-		if world == pressedWorld: continue
+		if world == pressedWorld:
+			continue
 		world.get_node("grid").visible = false
 		world.get_node("background").visible = false
-	var grid = pressedWorld.get_node("grid")	
+	var grid = pressedWorld.get_node("grid")
 	var background = pressedWorld.get_node("background")
-	if grid.visible: grid.visible = false
-	else: grid.visible = true	
-	if background.visible: background.visible = false
-	else: background.visible = true
-	grid.rect_position = Vector2(0- pressedWorld.rect_position.x, 262 - pressedWorld.rect_position.y)
-	background.rect_position = Vector2(0- pressedWorld.rect_position.x, 262 - pressedWorld.rect_position.y)
+	if grid.visible:
+		grid.visible = false
+	else:
+		grid.visible = true
+	if background.visible:
+		background.visible = false
+	else:
+		background.visible = true
+	grid.rect_position = Vector2(
+		0 - pressedWorld.rect_position.x, 262 - pressedWorld.rect_position.y
+	)
+	background.rect_position = Vector2(
+		0 - pressedWorld.rect_position.x, 262 - pressedWorld.rect_position.y
+	)
+
 
 func _levelPressed():
 	var levels := levelButtons.get_buttons()
 	var pressedLevel := levelButtons.get_pressed_button()
 	for level in levels:
-		if level == pressedLevel: continue
+		if level == pressedLevel:
+			continue
 		level.modulate = Color(1, 1, 1, 1)
 	pressedLevel.modulate = Color(0.8, 0.8, 0.8, 1)
 	gameInterface._vote(pressedLevel.name)
@@ -84,8 +100,9 @@ func _levelPressed():
 			allDone = false
 	if get_tree().get_network_unique_id() == 1 and allDone:
 		gameInterface.get_node("begin").disabled = false
-		
-func list_files_in_directory(path:String) -> Array:
+
+
+func list_files_in_directory(path: String) -> Array:
 	var files = []
 	var dir = Directory.new()
 	dir.open(path)

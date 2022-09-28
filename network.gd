@@ -8,11 +8,13 @@ var client = null
 
 var ipAddress = "127.0.0.1"
 
+
 func _ready():
 	get_tree().connect("connected_to_server", self, "_connected_to_server")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	get_tree().connect("connection_failed", self, "_connection_failed")
 	get_tree().connect("network_peer_connected", self, "_network_peer_connected")
+
 
 func createServer():
 	print("creating server")
@@ -21,25 +23,31 @@ func createServer():
 	server.create_server(defaultPort, maxClients)
 	get_tree().set_network_peer(server)
 
+
 func joinServer():
 	print("joining server")
-	
+
 	client = NetworkedMultiplayerENet.new()
 	client.create_client(ipAddress, defaultPort)
 	get_tree().set_network_peer(client)
 
+
 func _connected_to_server():
 	print("connected_to_server")
+
 
 func _server_disconnected():
 	print("server_disconnected")
 
+
 func _connection_failed():
 	print("connection_failed")
-	reset_network_connection()	
+	reset_network_connection()
+
 
 func _network_peer_connected(id):
 	print("network_peer_connected " + str(id))
+
 
 func reset_network_connection():
 	if get_tree().has_network_peer():
