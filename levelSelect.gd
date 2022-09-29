@@ -6,7 +6,7 @@ var worldButtons := ButtonGroup.new()
 var levelButtons := ButtonGroup.new()
 
 var gameInterface: Control
-
+var votes := {}
 
 func _ready():
 	gameInterface = Global.main.get_node("gameInterface")
@@ -92,11 +92,12 @@ func _levelPressed():
 			continue
 		level.modulate = Color(1, 1, 1, 1)
 	pressedLevel.modulate = Color(0.8, 0.8, 0.8, 1)
-	gameInterface._vote(pressedLevel.name)
+	_vote(pressedLevel.name)
 	var allDone := true
 	for id in get_tree().get_network_connected_peers():
 		rpc_id(id, "_vote", pressedLevel.name)
-		if $playerList.get_node(str(id) + "/readyTexture").texture == $playerList.readyIcon[0]:
+		var playerList = Global.main.get_node("gameInterface/playerList")
+		if playerList.get_node(str(id) + "/readyTexture").texture == playerList.readyIcon[0]:
 			allDone = false
 	if get_tree().get_network_unique_id() == 1 and allDone:
 		gameInterface.get_node("begin").disabled = false
@@ -117,3 +118,11 @@ func list_files_in_directory(path: String) -> Array:
 
 	dir.list_dir_end()
 	return files
+
+remote func _vote(levelName: String):
+	var id = get_tree().get_rpc_sender_id()
+	if id == 0:
+		id = get_tree().get_network_unique_id()
+	votes[id] = levelName
+	var playerList = Global.main.get_node("gameInterface/playerList")
+	playerList.get_node(str(id) + "/readyTexture").texture = playerList.readyIcon[1]

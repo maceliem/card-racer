@@ -1,19 +1,9 @@
 extends Control
 
-var votes := {}
-
-
-remote func _vote(levelName: String):
-	var id = get_tree().get_rpc_sender_id()
-	if id == 0:
-		id = get_tree().get_network_unique_id()
-	votes[id] = levelName
-	$playerList.get_node(str(id) + "/readyTexture").texture = $playerList.readyIcon[1]
-
 
 func _on_begin_pressed():
-	var keys := votes.keys()
-	var selectedLevel: String = votes[keys[randi() % len(keys)]]
+	var keys: Array = $TabContainer/LevelSelect.votes.keys()
+	var selectedLevel: String = $TabContainer/LevelSelect.votes[keys[randi() % len(keys)]]
 	_begin(selectedLevel)
 	for id in get_tree().get_network_connected_peers():
 		rpc_id(id, "_begin", selectedLevel)
