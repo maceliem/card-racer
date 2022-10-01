@@ -116,7 +116,7 @@ func _physics_process(delta):
 				$nametag.pixel_size = 0.01
 			if $nametag.pixel_size > 0.1:
 				$nametag.pixel_size = 0.1
-
+	$UI.update()
 	var curTorque := maxTorque
 	var curMaxRPM := maxRPM
 	var onRoad := false
