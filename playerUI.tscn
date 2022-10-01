@@ -1,0 +1,110 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/Text/TangoSans.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/themes/playerUITheme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/UI/speedometerBackground.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/Coin.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/speedometerProgress.png" type="Texture" id=5]
+[ext_resource path="res://playerUI.gd" type="Script" id=6]
+
+[sub_resource type="DynamicFont" id=6]
+size = 149
+extra_spacing_char = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://assets/Text/TangoSans.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 320
+font_data = SubResource( 7 )
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 6 )
+mapColor = Color( 0.411765, 0.411765, 0.415686, 1 )
+
+[node name="countdownText" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -256.0
+margin_top = -256.0
+margin_right = 256.0
+margin_bottom = 256.0
+text = "3"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="speeder" type="TextureProgress" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -384.0
+margin_right = 384.0
+value = 100.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 5 )
+fill_mode = 4
+radial_initial_angle = 200.0
+radial_fill_degrees = 320.0
+nine_patch_stretch = true
+
+[node name="lapsCounter" type="Label" parent="."]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 278.0
+margin_bottom = 304.0
+custom_constants/line_spacing = -90
+custom_fonts/font = SubResource( 6 )
+text = "1
+ /
+  3"
+
+[node name="lapsTimer" type="Timer" parent="lapsCounter"]
+wait_time = 0.1
+
+[node name="coinCounter" type="HBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -112.0
+margin_bottom = 75.0
+grow_horizontal = 0
+alignment = 2
+
+[node name="Label" type="Label" parent="coinCounter"]
+margin_right = 44.0
+margin_bottom = 75.0
+text = "3"
+
+[node name="TextureRect" type="TextureRect" parent="coinCounter"]
+margin_left = 48.0
+margin_right = 112.0
+margin_bottom = 75.0
+texture = ExtResource( 4 )
+
+[node name="PositionLabel" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -320.0
+margin_top = -320.0
+custom_fonts/font = SubResource( 8 )
+text = "1"
+align = 1
+
+[node name="Map" type="ColorRect" parent="."]
+visible = false
+show_behind_parent = true
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -200.0
+margin_bottom = 200.0
+color = Color( 0.572549, 0.572549, 0.607843, 0.313726 )
