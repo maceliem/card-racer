@@ -107,8 +107,4 @@ font = SubResource( 4 )
 
 [node name="UI" parent="." instance=ExtResource( 4 )]
 
-[node name="countdown" type="Timer" parent="."]
-one_shot = true
-
 [connection signal="timeout" from="NetworkTickRate" to="." method="_on_NetworkTickRate_timeout"]
-[connection signal="timeout" from="countdown" to="." method="_on_countdown_timeout"]

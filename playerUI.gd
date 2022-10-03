@@ -60,3 +60,24 @@ func rescale(newValues):
 		i += 1
 	mapPoints = newValues
 	update()
+
+
+func _on_countdown_timeout():
+	get_parent().countdown -= 1
+	if get_parent().countdown > 0:
+		$countdown.start()
+		$countdownText.text = str(get_parent().countdown)
+	elif get_parent().countdown == 0:
+		$countdown.start()
+		$countdownText.text = "GO!!!"
+		get_parent().get_node("NetworkTickRate").start()
+	else:
+		$countdownText.visible = false
+
+
+func _on_lapsTimer_timeout():
+	$lapsCounter.modulate.a -= 0.1
+	if $lapsCounter.modulate.a < 0:
+		$lapsCounter.modulate.a = 1
+		$lapsCounter.visible = false
+		$lapsCounter/lapsTimer.stop()

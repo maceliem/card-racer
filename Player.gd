@@ -76,7 +76,7 @@ func _start():
 	countdown = countdownTime
 	$UI/countdownText.text = str(countdown)
 	laps = -1
-	$countdown.start()
+	$UI/countdown.start()
 	sleeping = false
 	$UI/speeder.max_value = maxRPM
 
@@ -161,27 +161,6 @@ func _on_NetworkTickRate_timeout():
 		rpc_unreliable("update_state", global_transform.origin, rpm, global_rotation, acceleration)
 	else:
 		networckTickRate.stop()
-
-
-func _on_countdown_timeout():
-	countdown -= 1
-	if countdown > 0:
-		$countdown.start()
-		$UI/countdownText.text = str(countdown)
-	elif countdown == 0:
-		$countdown.start()
-		$UI/countdownText.text = "GO!!!"
-		$NetworkTickRate.start()
-	else:
-		$UI/countdownText.visible = false
-
-
-func _on_lapsTimer_timeout():
-	$UI/lapsCounter.modulate.a -= 0.1
-	if $UI/lapsCounter.modulate.a < 0:
-		$UI/lapsCounter.modulate.a = 1
-		$UI/lapsCounter.visible = false
-		$UI/lapsCounter/lapsTimer.stop()
 
 
 func calcDistranceTraveled() -> int:

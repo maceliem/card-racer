@@ -107,3 +107,8 @@ margin_left = -400.0
 margin_top = -200.0
 margin_bottom = 200.0
 color = Color( 0.572549, 0.572549, 0.607843, 0.313726 )
+
+[node name="countdown" type="Timer" parent="."]
+
+[connection signal="timeout" from="lapsCounter/lapsTimer" to="." method="_on_lapsTimer_timeout"]
+[connection signal="timeout" from="countdown" to="." method="_on_countdown_timeout"]
