@@ -1,7 +1,7 @@
 extends Control
 
-var settingsMenu := preload("settingsMenu.tscn").instance()
-var statistics := preload("statistics.tscn").instance()
+var settingsMenu := preload("res://mainMenu/settingsMenu.tscn").instance()
+var statistics := preload("res://mainMenu/statistics.tscn").instance()
 
 
 func _on_Continue_pressed():

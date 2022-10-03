@@ -1,5 +1,5 @@
 extends Control
-var deck := preload("res://cardDeck.tscn")
+var deck := preload("res://gameMenu/cardDeck.tscn")
 
 var maxCards := 3
 

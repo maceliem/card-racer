@@ -1,9 +1,9 @@
 extends Node
 class_name Main
 
-var player := preload("res://Player.tscn")
-var pauseMenu := preload("res://pause.tscn")
-var feedbackMenu := preload("res://Feedback.tscn")
+var player := preload("res://player/Player.tscn")
+var pauseMenu := preload("res://mainMenu/pause.tscn")
+var feedbackMenu := preload("res://mainMenu/Feedback.tscn")
 
 export(Texture) var icone
 

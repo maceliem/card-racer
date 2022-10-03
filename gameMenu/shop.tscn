@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/Text/TangoSans.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/UI/Coin.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI/reload.png" type="Texture" id=3]
-[ext_resource path="res://shop.gd" type="Script" id=4]
+[ext_resource path="res://gameMenu/shop.gd" type="Script" id=4]
 [ext_resource path="res://assets/themes/baseUI.tres" type="Theme" id=5]
 
 [sub_resource type="DynamicFont" id=1]
