@@ -1,6 +1,7 @@
 extends Control
 
 var settingsMenu := preload("settingsMenu.tscn").instance()
+var statistics := preload("statistics.tscn").instance()
 
 
 func _on_Continue_pressed():
@@ -30,3 +31,7 @@ func _on_quitFR_pressed():
 
 func _on_noQuit_pressed():
 	queue_free()
+
+
+func _on_Stats_pressed():
+	add_child(statistics)

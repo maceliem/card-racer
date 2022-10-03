@@ -7,21 +7,28 @@ export var mapColor := Color(1, 0, 0)
 export var mapThickness := 10
 export var playerThickness := 7
 
-var maplow:Vector2
-var maphigh:Vector2
-var mapscale:Vector2
-var maptranslate:Vector2
+var maplow: Vector2
+var maphigh: Vector2
+var mapscale: Vector2
+var maptranslate: Vector2
+
 
 func _draw():
 	if mapPoints.empty():
 		return
 	draw_polyline(mapPoints, mapColor, mapThickness, true)
 	for id in get_tree().get_network_connected_peers():
-		var player:Player = Global.main.get_node(str(id))
-		var point = mapscale * Vector2(player.global_translation.x, player.global_translation.z) + maptranslate
+		var player: Player = Global.main.get_node(str(id))
+		var point = (
+			mapscale * Vector2(player.global_translation.x, player.global_translation.z)
+			+ maptranslate
+		)
 		draw_circle(point, playerThickness, Global.main.playerCustomization[id].color)
-	var point = mapscale * Vector2(Global.player.global_translation.x, Global.player.global_translation.z) + maptranslate
-	draw_circle(point, playerThickness+4, Color(0,0,0,1))
+	var point = (
+		mapscale * Vector2(Global.player.global_translation.x, Global.player.global_translation.z)
+		+ maptranslate
+	)
+	draw_circle(point, playerThickness + 4, Color(0, 0, 0, 1))
 	draw_circle(point, playerThickness, Global.main.ownCustomization.color)
 
 

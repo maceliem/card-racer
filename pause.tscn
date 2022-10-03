@@ -40,31 +40,30 @@ custom_constants/separation = 80
 alignment = 1
 
 [node name="Continue" type="Button" parent="background/VBoxContainer"]
-margin_top = 258.0
+margin_top = 193.0
 margin_right = 600.0
-margin_bottom = 307.0
+margin_bottom = 242.0
 custom_fonts/font = ExtResource( 3 )
 text = "Continue"
 
 [node name="Settings" type="Button" parent="background/VBoxContainer"]
-margin_top = 387.0
+margin_top = 322.0
 margin_right = 600.0
-margin_bottom = 436.0
+margin_bottom = 371.0
 custom_fonts/font = ExtResource( 3 )
 text = "Settings"
 
 [node name="Stats" type="Button" parent="background/VBoxContainer"]
-visible = false
 margin_top = 451.0
 margin_right = 600.0
-margin_bottom = 522.0
+margin_bottom = 500.0
 custom_fonts/font = ExtResource( 3 )
 text = "Stats"
 
 [node name="Quit" type="Button" parent="background/VBoxContainer"]
-margin_top = 516.0
+margin_top = 580.0
 margin_right = 600.0
-margin_bottom = 565.0
+margin_bottom = 629.0
 custom_fonts/font = ExtResource( 3 )
 text = "Quit"
 
@@ -127,6 +126,7 @@ text = "Back"
 
 [connection signal="pressed" from="background/VBoxContainer/Continue" to="." method="_on_Continue_pressed"]
 [connection signal="pressed" from="background/VBoxContainer/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="pressed" from="background/VBoxContainer/Stats" to="." method="_on_Stats_pressed"]
 [connection signal="pressed" from="background/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="quitWarning/VBoxContainer/HBoxContainer/quitFR" to="." method="_on_quitFR_pressed"]
 [connection signal="pressed" from="quitWarning/VBoxContainer/HBoxContainer/noQuit" to="." method="_on_noQuit_pressed"]
