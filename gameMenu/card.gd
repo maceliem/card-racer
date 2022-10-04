@@ -35,6 +35,7 @@ func _ready():
 	rect_min_size = Vector2(height / ratio, height)
 	theme = load("res://assets/themes/cardTheme.tres")
 	theme_type_variation = rarityName[rarity] + "Card"
+
 	#container of card elements
 	var vbox := VBoxContainer.new()
 	vbox.rect_size = rect_size
@@ -102,35 +103,39 @@ func _get_property_list() -> Array:
 func _on_card_pressed():
 	if get_tree().current_scene.name != "main":
 		return
-	if Global.player.coins >= price:
-		Global.player.coins -= price
 
-		shop.get_node("coinCounter/Label").text = str(Global.player.coins)
+	if Global.player.coins < price:
+		return
 
-		if modifiers.rubyChance > 0:
-			if !Global.main.coinChance.keys().has("ruby"):
-				Global.main.coinChance.ruby = modifiers.rubyChance
-			else:
-				Global.main.coinChance.ruby += modifiers.rubyChance
+	Global.player.coins -= price
 
-		if modifiers.headstart != 0:
-			Global.player.countdownTime += modifiers.headstart
-			if Global.player.countdownTime < 0:
-				Global.player.countdownTime = 0
+	shop.get_node("coinCounter/Label").text = str(Global.player.coins)
 
-		if modifiers.scale != 0:
-			Global.player.scale *= modifiers.scale
+	if modifiers.rubyChance > 0:
+		if !Global.main.coinChance.keys().has("ruby"):
+			Global.main.coinChance.ruby = modifiers.rubyChance
+		else:
+			Global.main.coinChance.ruby += modifiers.rubyChance
 
-		if modifiers.disableBreaks:
-			Global.player.workingBreaks = false
-		#Player modifiers, that doesn't need special treatment
-		var simplePlayerModifiers := [
-			"offroad", "maxRPM", "maxTorque", "handelingSpeed", "handelingAmount", "mass"
-		]
-		for type in simplePlayerModifiers:
-			if modifiers[type] != 0:
-				Global.player[type] += modifiers[type]
-		queue_free()
+	if modifiers.headstart != 0:
+		Global.player.countdownTime += modifiers.headstart
+		if Global.player.countdownTime < 0:
+			Global.player.countdownTime = 0
+
+	if modifiers.scale != 0:
+		Global.player.scale *= modifiers.scale
+
+	if modifiers.disableBreaks:
+		Global.player.workingBreaks = false
+
+	#Player modifiers, that doesn't need special treatment
+	var simplePlayerModifiers := [
+		"offroad", "maxRPM", "maxTorque", "handelingSpeed", "handelingAmount", "mass"
+	]
+	for type in simplePlayerModifiers:
+		if modifiers[type] != 0:
+			Global.player[type] += modifiers[type]
+	queue_free()
 
 
 func _tree_exited():

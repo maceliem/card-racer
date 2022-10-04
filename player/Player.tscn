@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/Text/TangoSans.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/wheel.tscn" type="PackedScene" id=3]
-[ext_resource path="res://player/playerUI.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 2, 1, 4 )
@@ -104,7 +103,5 @@ wait_time = 0.05
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0 )
 visible = false
 font = SubResource( 4 )
-
-[node name="UI" parent="." instance=ExtResource( 4 )]
 
 [connection signal="timeout" from="NetworkTickRate" to="." method="_on_NetworkTickRate_timeout"]

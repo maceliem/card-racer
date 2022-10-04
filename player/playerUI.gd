@@ -7,13 +7,32 @@ export var mapColor := Color(1, 0, 0)
 export var mapThickness := 10
 export var playerThickness := 7
 
+var countdown: int
+
 var maplow: Vector2
 var maphigh: Vector2
 var mapscale: Vector2
 var maptranslate: Vector2
 
 
+func _start():
+	name = "UI"
+	visible = is_network_master()
+	$coinCounter/Label.text = str(Global.player.coins)
+	$lapsCounter.visible = false
+	$countdownText.visible = true
+	$countdownText.text = str(countdown)
+	$countdown.start()
+	$speeder.max_value = Global.player.maxRPM
+
+	var level: Track = Global.main.get_node("level")
+	mapPoints = level.bakedPoints2D
+	rescale(mapPoints)
+
+
 func _draw():
+	$speeder.value = abs(Global.player.rpm)
+
 	if mapPoints.empty():
 		return
 	draw_polyline(mapPoints, mapColor, mapThickness, true)
@@ -63,11 +82,11 @@ func rescale(newValues):
 
 
 func _on_countdown_timeout():
-	get_parent().countdown -= 1
-	if get_parent().countdown > 0:
+	countdown -= 1
+	if countdown > 0:
 		$countdown.start()
-		$countdownText.text = str(get_parent().countdown)
-	elif get_parent().countdown == 0:
+		$countdownText.text = str(countdown)
+	elif countdown == 0:
 		$countdown.start()
 		$countdownText.text = "GO!!!"
 		get_parent().get_node("NetworkTickRate").start()

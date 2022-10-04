@@ -23,32 +23,30 @@ func _ready():
 	_loadGame()
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
-
 	Global.connect("instance_player", self, "_instance_player")
 
 	if get_tree().network_peer != null:
 		Global.emit_signal("toggle_network_setup", false)
 
 
-func _instance_player(id):
+func _instance_player(id: int):
 	var player_instance: Player = player.instance()
 	player_instance.set_network_master(id)
 	player_instance.name = str(id)
 	add_child(player_instance)
+
 	while !playerCustomization.has(id):
 		yield(get_tree(), "idle_frame")
-	var customs: Dictionary = playerCustomization[id]
-	var labelname: String = customs.name
-	if id == 1:
-		labelname += " (host)"
-	$gameInterface/playerList.addPlayer(labelname, customs.color, icone, id)
+	$gameInterface/playerList.addPlayer(
+		playerCustomization[id].name, playerCustomization[id].color, icone, id
+	)
 
 
-func _player_connected(id):
+func _player_connected(id: int):
 	print("Player " + str(id) + " has connected")
 
 	#only for the host
-	if get_tree().get_network_unique_id() == 1:
+	if get_tree().get_network_unique_id() == Global.hostID:
 		#give other players their positions and save it self
 		var pos = len(get_tree().get_network_connected_peers())
 		rpc_id(id, "givePlayerPos", [id, pos])
@@ -57,7 +55,7 @@ func _player_connected(id):
 	_instance_player(id)
 
 
-func _player_disconnected(id):
+func _player_disconnected(id: int):
 	print("Player " + str(id) + " has disconnected")
 
 	if has_node(str(id)):
@@ -78,12 +76,12 @@ func _on_ColorPickerButton_color_changed(color: Color):
 	ownCustomization.color = color
 
 
-remote func register_player(info):
+remote func register_player(info: Dictionary):
 	var id = get_tree().get_rpc_sender_id()
 	playerCustomization[id] = info
 
 
-remote func givePlayerPos(info):
+remote func givePlayerPos(info: Dictionary):
 	positions[info[0]] = info[1]
 
 
@@ -132,7 +130,7 @@ func finishRace():
 		$gameInterface/playerList.get_node(str(id) + "/score").text = str(score)
 	var ownPlayer: Player = get_node(str(get_tree().get_network_unique_id()))
 	ownPlayer.camera.current = false
-	ownPlayer.get_node("UI").visible = false
+	ownPlayer.remove_child(ownPlayer.get_node("UI"))
 	$gameInterface/TabContainer/Shop/coinCounter/Label.text = str(ownPlayer.coins)
 	$Camera2D.current = true
 	get_node("level").queue_free()

@@ -16,7 +16,6 @@ var puppetRpm := 0.0
 var puppetAcceleration := 0.0
 
 var startPos := 0
-var countdown := 0
 var countdownTime := 5
 var position := 0
 var trackDistance := 0
@@ -26,14 +25,14 @@ var finalPos: int
 
 var coins := 0
 
+var UI = load("res://player/playerUI.tscn").instance()
+
 
 func updateLook():
 	#Wait until we have data
 	if !Global.main.playerCustomization.has(int(name)):
 		yield(get_tree(), "idle_frame")
 		return updateLook()
-	$UI/coinCounter/Label.text = str(coins)
-	$UI/lapsCounter.visible = false
 	#get data
 	var customVariables = Global.main.playerCustomization[int(name)]
 	$nametag.text = customVariables.name
@@ -54,7 +53,6 @@ func _ready():
 	contact_monitor = true
 	contacts_reported = 1000
 	$Camera.current = false
-	$UI.visible = false
 	Global.main = get_parent()
 
 
@@ -65,24 +63,21 @@ func _start():
 	updateLook()
 	camera.current = is_network_master()
 	$nametag.visible = !is_network_master()
-	global_transform.origin = Global.main.get_node("level").startPositions[Global.main.positions[int(
+	var trackPosition: Position3D = Global.main.get_node("level").startPositions[Global.main.positions[int(
 		name
-	)]].translation
-	global_rotation = Global.main.get_node("level").startPositions[Global.main.positions[int(
-		name
-	)]].rotation
-	$UI.visible = is_network_master()
-	$UI/countdownText.visible = true
-	countdown = countdownTime
-	$UI/countdownText.text = str(countdown)
+	)]]
+	global_transform.origin = trackPosition.translation
+	global_rotation = trackPosition.rotation
 	laps = -1
-	$UI/countdown.start()
+	if is_network_master():
+		UI.countdown = countdownTime
+		add_child(UI)
+		UI._start()
 	sleeping = false
-	$UI/speeder.max_value = maxRPM
 
 
 func _physics_process(delta):
-	if countdown > 0:
+	if UI.countdown > 0:
 		return
 	if is_network_master():
 		steering = lerp(
@@ -116,7 +111,7 @@ func _physics_process(delta):
 				$nametag.pixel_size = 0.01
 			if $nametag.pixel_size > 0.1:
 				$nametag.pixel_size = 0.1
-	$UI.update()
+	UI.update()
 	var curTorque := maxTorque
 	var curMaxRPM := maxRPM
 	var onRoad := false
@@ -130,8 +125,6 @@ func _physics_process(delta):
 	rpm = abs($back_right.get_rpm())
 	$back_right.engine_force = acceleration * curTorque * (1 - rpm / curMaxRPM)
 
-	$UI/speeder.value = abs(rpm)
-
 	var tmp = calcDistranceTraveled()
 	if tmp != -1:
 		trackDistance = tmp
@@ -142,7 +135,7 @@ func _physics_process(delta):
 			position += 1
 		elif otherPlayer.trackDistance > trackDistance:
 			position += 1
-	$UI/PositionLabel.text = str(position)
+	UI.get_node("PositionLabel").text = str(position)
 
 
 puppet func update_state(p_position, p_rpm, p_rotation, p_acceleration):

@@ -22,7 +22,6 @@ func _on_Area_body_entered(body: Node):
 
 		body.finalPos = inGoal
 		body.sleeping = true
-		body.countdown = 3
 		body.steering = 0
 		body.get_node("back_left").engine_force = 0
 		body.get_node("back_right").engine_force = 0
