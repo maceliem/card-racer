@@ -19,6 +19,7 @@ var startPos := 0
 var countdownTime := 5
 var position := 0
 var trackDistance := 0
+var chatting := false
 
 var laps := -1
 var finalPos: int
@@ -69,15 +70,17 @@ func _start():
 	global_transform.origin = trackPosition.translation
 	global_rotation = trackPosition.rotation
 	laps = -1
+	add_child(UI)
 	if is_network_master():
 		UI.countdown = countdownTime
-		add_child(UI)
 		UI._start()
 	sleeping = false
 
 
 func _physics_process(delta):
 	if UI.countdown > 0:
+		return
+	if chatting:
 		return
 	if is_network_master():
 		steering = lerp(
@@ -162,3 +165,22 @@ func calcDistranceTraveled() -> int:
 	var curve: Curve3D = Global.main.get_node("level/Road").get_curve()
 
 	return curve.get_baked_points().find(curve.get_closest_point(translation))
+
+remote func send_message(text: String):
+	if text == "":
+		return
+	var font: Font = load("res://assets/Text/chatFont.tres")
+	var message := Label.new()
+	message.add_font_override("font", font)
+	message.autowrap = true
+	var id
+	if get_tree().get_rpc_sender_id() == 0:
+		id = get_tree().get_network_unique_id()
+	else:
+		id = get_tree().get_rpc_sender_id()
+	message.text = (
+		Global.main.playerCustomization[id].name
+		+ " - "
+		+ text
+	)
+	get_parent().get_node(str(get_tree().get_network_unique_id()) + "/UI/Chat/chatLog").add_child(message)

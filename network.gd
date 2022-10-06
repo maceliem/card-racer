@@ -22,6 +22,7 @@ func createServer():
 	server = NetworkedMultiplayerENet.new()
 	server.create_server(defaultPort, maxClients)
 	get_tree().set_network_peer(server)
+	print(get_tree().get_network_unique_id())
 	Global.hostID = get_tree().get_network_unique_id()
 
 
@@ -48,8 +49,11 @@ func _connection_failed():
 
 func _network_peer_connected(id):
 	print("network_peer_connected " + str(id))
-	Global.hostID = id
+	rpc_id(id, "hostID", Global.hostID) 
 
+remote func hostID(id):
+	if Global.hostID == null:
+		Global.hostID = id
 
 func reset_network_connection():
 	if get_tree().has_network_peer():

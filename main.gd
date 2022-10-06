@@ -45,14 +45,15 @@ func _instance_player(id: int):
 func _player_connected(id: int):
 	print("Player " + str(id) + " has connected")
 
+	rpc_id(id, "register_player", ownCustomization)
+	_instance_player(id)
+	
 	#only for the host
 	if get_tree().get_network_unique_id() == Global.hostID:
 		#give other players their positions and save it self
 		var pos = len(get_tree().get_network_connected_peers())
 		rpc_id(id, "givePlayerPos", [id, pos])
 		positions[id] = pos
-	rpc_id(id, "register_player", ownCustomization)
-	_instance_player(id)
 
 
 func _player_disconnected(id: int):
@@ -81,7 +82,7 @@ remote func register_player(info: Dictionary):
 	playerCustomization[id] = info
 
 
-remote func givePlayerPos(info: Dictionary):
+remote func givePlayerPos(info):
 	positions[info[0]] = info[1]
 
 

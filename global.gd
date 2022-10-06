@@ -7,7 +7,7 @@ var main: Main
 
 var player: Player
 
-var hostID:int
+var hostID = null 
 
 var statistics := {
 	"Coin collected:": 0,

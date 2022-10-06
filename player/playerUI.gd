@@ -14,10 +14,12 @@ var maphigh: Vector2
 var mapscale: Vector2
 var maptranslate: Vector2
 
+func _ready():
+	visible = false
 
 func _start():
 	name = "UI"
-	visible = is_network_master()
+	visible = true
 	$coinCounter/Label.text = str(Global.player.coins)
 	$lapsCounter.visible = false
 	$countdownText.visible = true
@@ -100,3 +102,22 @@ func _on_lapsTimer_timeout():
 		$lapsCounter.modulate.a = 1
 		$lapsCounter.visible = false
 		$lapsCounter/lapsTimer.stop()
+
+
+func _input(event):
+	if !event.is_action_pressed("chat"):
+		return
+	get_parent().chatting = !get_parent().chatting
+
+	#If we start chat
+	if get_parent().chatting:
+		$Chat/chatBox.grab_focus()
+	#If sending
+	else:
+		$Chat/chatBox.release_focus()
+		for id in get_tree().get_network_connected_peers():
+			print(id)
+			get_parent().rpc_id(id, "send_message", $Chat/chatBox.text)
+		get_parent().send_message($Chat/chatBox.text)
+		$Chat/chatBox.text = ""
+
