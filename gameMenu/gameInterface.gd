@@ -19,8 +19,12 @@ remote func _begin(levelName: String):
 
 	#start players
 	for id in get_tree().get_network_connected_peers():
-		get_parent().get_node(str(id))._start()
+		var player: Player = Global.main.playerCustomization[id].player
+		Global.main.add_child(player)
+		player._start()
 	var id = get_tree().get_network_unique_id()
-	get_parent().get_node(str(id))._start()
+	var player: Player = Global.main.playerCustomization[id].player
+	Global.main.add_child(player)
+	player._start()
 
 	visible = false

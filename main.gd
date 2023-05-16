@@ -33,10 +33,10 @@ func _instance_player(id: int):
 	var player_instance: Player = player.instance()
 	player_instance.set_network_master(id)
 	player_instance.name = str(id)
-	add_child(player_instance)
 
 	while !playerCustomization.has(id):
 		yield(get_tree(), "idle_frame")
+	playerCustomization[id].player = player_instance
 	$gameInterface/playerList.addPlayer(
 		playerCustomization[id].name, playerCustomization[id].color, icone, id
 	)

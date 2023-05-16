@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://objects/spookyHouse.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Goal.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Track.gd" type="Script" id=3]
+
+[sub_resource type="Curve3D" id=1]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0, 0, -55, 0, 0, 0, 0, 0, 0, 0, 0, -99, 0, 0, 0, 0, 0, 0, 0, 0, -159, 0, 0, 0, 0, 0, 0, -0.806875, 0, -213.758, 0, 0, 0, 0, 0, 0, 75.0002, 0, -211.151, 0, 0, 0, 0, 0, 0, 76.2706, -3.8147e-06, -257.543, 0, 0, 0, 0, 0, 0, -73.7621, -3.8147e-06, -257.715, 0, 0, 0, 0, 0, 0, -72.2358, 0, -227.277, 0, 0, 0, 0, 0, 0, -69, 26, -137, 0, 0, 0, 0, 0, 0, -68.7412, 26, -118.818, 0, 0, 0, 0, 0, 0, -36, 26, -118, 0, 0, 0, 0, 0, 0, -36, 26, -138, 0, 0, 0, 0, 0, 0, -34, 52, -227, 0, 0, 0, 0, 0, 0, -33.5565, 52, -267.271, 0, 0, 0, 0, 0, 0, 43, 52, -268, 0, 0, 0, 0, 0, 0, 43.9719, 52, -235.671, 0, 0, 0, 0, 0, 0, 75.9455, 52, -174.938, 0, 0, 0, 0, 0, 0, 75.9037, 52, -119.069, 0, 0, 0, 0, 0, 0, 31.7009, 52, -119.848, 0, 0, 0, 0, 0, 0, -54, 74, -121, 0, 0, 0, 0, 0, 0, -75.5437, 73.8262, -121, 0, 0, 0, 0, 0, 0, -75, 70, -156, 0, 0, 0, 0, 0, 0, -43, 69, -157, 0, 0, 0, 0, 0, 0, 58, 104, -157, 0, 0, 0, 0, 0, 0, 79.8487, 104, -157.561, 0, 0, 0, 0, 0, 0, 78.6379, 104, -112.519, 0, 0, 0, 0, 0, 0, -77.9822, 104, -114.163, 0, 0, 0, 0, 0, 0, -77.3898, 104, -271.162, 0, 0, 0, 0, 0, 0, 92.5236, 104, -267.843, 0, 0, 0, 0, 0, 0, 143, 6, -247, 0, 0, 0, 0, 0, 0, 756.865, 6, -236.557, 0, 0, 0, 0, 0, 0, 811.678, 6.00003, 830.332, 0, 0, 0, 0, 0, 0, -5.35237, 6.00003, 594.181, 0, 0, 0, 0, 0, 0, -1.21119, 6, 114.645, 0, 0, 0, 0, 0, 0, 0, 0, -55 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+}
+
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 1000, 1000 )
+
+[sub_resource type="SpatialMaterial" id=5]
+resource_name = "glass"
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+albedo_color = Color( 0.0196078, 0.129412, 0.00784314, 1 )
+roughness = 0.431496
+
+[sub_resource type="ProceduralSky" id=3]
+sky_top_color = Color( 0.0196078, 0.00392157, 0.164706, 1 )
+sky_horizon_color = Color( 0.00392157, 0, 0.054902, 1 )
+sun_latitude = -180.0
+sun_energy = 0.1
+
+[sub_resource type="Environment" id=4]
+background_mode = 2
+background_sky = SubResource( 3 )
+background_color = Color( 0.00784314, 0.00392157, 0.027451, 1 )
+
+[node name="Node" type="Node"]
+script = ExtResource( 3 )
+
+[node name="level" parent="." instance=ExtResource( 1 )]
+
+[node name="Road" type="Path" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 192 )
+curve = SubResource( 1 )
+
+[node name="grass" type="CSGMesh" parent="."]
+transform = Transform( 2.4, 0, 0, 0, 1, 0, 0, 0, 2.4, 327, 0, 359 )
+mesh = SubResource( 2 )
+material = SubResource( 5 )
+
+[node name="sun" type="DirectionalLight" parent="."]
+transform = Transform( -3.78552e-08, 0.5, -0.866025, 2.18557e-08, 0.866025, 0.5, 1, 0, -4.37114e-08, -6, 109, 428 )
+light_energy = 3.222
+shadow_enabled = true
+directional_shadow_max_distance = 1569.4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 4 )
+
+[node name="Goal" parent="." instance=ExtResource( 2 )]
+transform = Transform( 3.168, 0, 0, 0, 1, 0, 0, 0, 2.4, -4, 0, 400 )
+
+[node name="startPositions" type="Node" parent="."]
+
+[node name="Position3D" type="Position3D" parent="startPositions"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -32, 5, 428 )
+
+[node name="Position3D2" type="Position3D" parent="startPositions"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24, 5, 428 )
+
+[node name="Position3D3" type="Position3D" parent="startPositions"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 5, 428 )
+
+[node name="Position3D4" type="Position3D" parent="startPositions"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -32, 5, 458 )
+
+[node name="Position3D5" type="Position3D" parent="startPositions"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24, 5, 458 )
+
+[node name="Position3D6" type="Position3D" parent="startPositions"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 5, 458 )
+
+[node name="Position3D7" type="Position3D" parent="startPositions"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -32, 5, 488 )
+
+[node name="Position3D8" type="Position3D" parent="startPositions"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24, 5, 488 )
+
+[node name="Position3D9" type="Position3D" parent="startPositions"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3, 5, 488 )
+
+[node name="coins" type="Node" parent="."]

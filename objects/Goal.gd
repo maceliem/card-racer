@@ -4,7 +4,7 @@ var inGoal := 0
 
 
 func _on_Area_body_entered(body: Node):
-	if body.name == "Road":  #Ignore road
+	if body.get_class() != "Player":  #Ignore road
 		return
 	body.laps += 1
 	if body.is_network_master():

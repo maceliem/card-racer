@@ -52,6 +52,7 @@ script = ExtResource( 2 )
 preview = ExtResource( 4 )
 
 [node name="Road" type="Path" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 curve = SubResource( 1 )
 
 [node name="Road" type="CSGPolygon" parent="Road"]
@@ -69,7 +70,7 @@ path_u_distance = 1.0
 path_joined = false
 material = ExtResource( 3 )
 
-[node name="plane" type="CSGMesh" parent="."]
+[node name="grass" type="CSGMesh" parent="."]
 transform = Transform( 269.568, 0, 0, 0, 1, 0, 0, 0, 252.828, 320, 0, 64 )
 use_collision = true
 collision_layer = 2
@@ -285,6 +286,6 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -109, 1
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -132, 1, -225 )
 
 [node name="Sun" type="DirectionalLight" parent="."]
-transform = Transform( 0.707107, -4.9176e-09, 0.707107, -0.707107, -4.9176e-09, 0.707107, 0, -1, -6.95453e-09, 0, 319.939, 0 )
+transform = Transform( 0.707107, -4.9176e-09, 0.707107, -0.707107, -4.9176e-09, 0.707107, 0, -1, -6.95454e-09, 0, 319.939, 0 )
 light_energy = 0.8
 shadow_enabled = true

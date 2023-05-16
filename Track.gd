@@ -9,7 +9,12 @@ var bakedPoints2D: PoolVector2Array = []
 
 
 func _ready():
-	$Road.translation.y = 0
+	if self.has_node("level"):
+		for obj in get_node("level").get_children():
+			if len(obj.get_children())<1:
+				obj.create_convex_collision()
+			
+	$Road.translation.y = -1 
 	for child in $startPositions.get_children():
 		startPositions.push_back(child)
 

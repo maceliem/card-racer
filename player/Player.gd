@@ -1,5 +1,6 @@
 class_name Player
 extends VehicleBody
+func get_class(): return "Player"
 
 var maxRPM := 4000
 var maxTorque := 2000
@@ -8,8 +9,8 @@ var workingBreaks := true
 var handelingSpeed := 2
 var handelingAmount := 0.02
 
-var rpm
-var acceleration
+var rpm := 0
+var acceleration := 0
 var puppetPosition := Vector3()
 var puppetRotation := Vector3()
 var puppetRpm := 0.0
@@ -47,17 +48,13 @@ export(NodePath) onready var camera = get_node(camera) as Camera
 export(NodePath) onready var networckTickRate = get_node(networckTickRate) as Timer
 export(NodePath) onready var movementTween = get_node(movementTween) as Tween
 
-
-func _ready():
+func _start():
 	if is_network_master():
 		Global.player = self
 	contact_monitor = true
 	contacts_reported = 1000
 	$Camera.current = false
 	Global.main = get_parent()
-
-
-func _start():
 	$back_left.engine_force = 0
 	$back_right.engine_force = 0
 
@@ -118,9 +115,9 @@ func _physics_process(delta):
 	var curTorque := maxTorque
 	var curMaxRPM := maxRPM
 	var onRoad := false
-	for obj in $Area.get_overlapping_bodies():
-		if obj.name == "Road":
-			onRoad = true
+	var offroadTypes := ["grass"]
+	if $ground.get_collider() != null and !offroadTypes.has($ground.get_collider().name):
+		onRoad = true
 	if !onRoad:
 		curTorque *= offroad
 		curMaxRPM *= offroad
